@@ -1,4 +1,5 @@
 "basic  stuff"
+"
 	syntax on 
 	set nu relativenumber
 	set smartindent
@@ -9,11 +10,8 @@
 	set hidden
 	set wildmenu
 	filetype plugin on
-
-
-au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
-au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
-
+	set textwidth=72
+	set ttyfast
 
 "Plugins"
 
@@ -40,3 +38,33 @@ inoremap <right> <NOP>
 
   let g:pandoc#formatting#mode = 'h' " A'
   let g:pandoc#formatting#textwidth = 72
+
+" golang" 
+
+  let g:go_fmt_fail_silently = 0
+	let g:go_fmt_command = 'goimports'
+  let g:go_fmt_autosave = 1
+	let g:go_gopls_enabled = 1
+	let g:go_highlight_types = 1
+	let g:go_highlight_fields = 1
+	let g:go_highlight_functions = 1
+	let g:go_highlight_function_calls = 1
+	let g:go_highlight_operators = 1
+	let g:go_highlight_extra_types = 1
+	let g:go_highlight_variable_declarations = 1
+	let g:go_highlight_variable_assignments = 1
+	let g:go_highlight_build_constraints = 1
+	let g:go_highlight_diagnostic_errors = 1
+	let g:go_highlight_diagnostic_warnings = 1
+  let g:go_auto_sameids = 0
+
+	set updatetime=100
+
+	au FileType go nmap <leader>t :GoTest!<CR>
+	au FileType go nmap <leader>v :GoVet!<CR>
+	au FileType go nmap <leader>b :GoBuild!<CR>
+	au FileType go nmap <leader>c :GoCoverageToggle<CR>
+	au FileType go nmap <leader>i :GoInfo<CR>
+	au FileType go nmap <leader>l :GoMetaLinter!<CR>
+
+  
