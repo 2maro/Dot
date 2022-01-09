@@ -1,8 +1,8 @@
 #!/bin/bash
 
-ln -sf $PWD/config.bash $HOME/.bash_aliases
-ls -l $HOME/.bash_aliases
-ln -sf $PWD/vimrc $HOME/.vimrc
-ls -l $HOME/.vimrc
-ln -sf $PWD/tmux $HOME/.tmux.conf
-ls -l $HOME/.tmux.conf
+set -e
+
+ln -sf "$PWD/.bashc"  "$HOME/.bashrc"
+ln -sf "$PWD/dircolors"  "$HOME/.dircolors"
+ln -sf "$PWD/vimrc" "$HOME/.vimrc"
+ln -sf "$PWD/tmux" "$HOME/.tmux.conf"

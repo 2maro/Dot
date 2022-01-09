@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# for commenting things no plugs neeeeded!!
+
+
+while IFS= read -r line; do
+	echo "${1-#}$line"
+done
+

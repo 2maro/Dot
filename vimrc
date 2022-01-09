@@ -12,6 +12,9 @@
 	filetype plugin on
 	set textwidth=72
 	set ttyfast
+	set encoding=utf-8
+	set fileencodings=utf-8
+	
 
 "Plugins"
 
@@ -23,8 +26,9 @@ call plug#begin('~/.local/share/vim/plugins')
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
   Plug 'tpope/vim-fugitive'
   call plug#end()
-"no arrow keys(vi only only!!)
 
+
+"no arrow keys(vi only only!!)
 noremap <up> :echoerr "K, hello??"<CR>
 noremap <down> :echoerr "k, hello??"<CR>
 noremap <right> :echoerr "l, hello??"<CR>
@@ -66,5 +70,6 @@ inoremap <right> <NOP>
 	au FileType go nmap <leader>c :GoCoverageToggle<CR>
 	au FileType go nmap <leader>i :GoInfo<CR>
 	au FileType go nmap <leader>l :GoMetaLinter!<CR>
-
+	au FileType go nmap <leader>r :GoRun!<CR>
+	
   

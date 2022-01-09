@@ -1,5 +1,0 @@
-#!/bin/sh
-
-
-dig +shot myip.opendns.com @resover1.opendns.com
-
