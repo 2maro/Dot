@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/bash
 # fastest way to clear the screen
 
 clear()

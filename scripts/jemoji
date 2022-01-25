@@ -2,10 +2,10 @@
 
 declare -A emoji
 
-emoji[smile]=~_~X~C
-emoji[stop]=~_~[~Q
-emoji[warning]=~Z| ~O
-emoji[idea]=~_~R
+emoji[smile]=
+emoji[stop]=
+emoji[warning]=
+emoji[idea]=
 
 toemoji() {
   local in=/dev/stdin

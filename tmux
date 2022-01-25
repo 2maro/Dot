@@ -52,11 +52,7 @@ set -s escape-time 0
 bind -r r source-file ~/.tmux.conf
 set -g message-style "fg=red"
 
-
-# colors, clock, and stuff
-#set -g default-terminal "xterm-256color" # works, but oh so wrong
-#set -ga terminal-overrides ",xterm-256color*:Tc"
-
+#colors
 set -g default-terminal "screen-256color"
 
 #set -g clock-mode-style 12

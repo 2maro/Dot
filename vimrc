@@ -1,7 +1,7 @@
-"basic  stuff"
+"basic  stuff
 "
 	syntax on 
-	set nu relativenumber
+	set nu 
 	set smartindent
 	set smarttab
 	set nobackup
@@ -14,13 +14,14 @@
 	set ttyfast
 	set encoding=utf-8
 	set fileencodings=utf-8
+	set updatetime=100
+	colorscheme Tomorrow-Night-Eighties
 	
-
 "Plugins"
 
-call plug#begin('~/.local/share/vim/plugins')
+call plug#begin('~/.vim/plugins')
   Plug 'sheerun/vim-polyglot'
-	Plug 'rwxrob/vim-pandoc-syntax-simple'
+	Plug 'chriskempson/tomorrow-theme'
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'rwxrob/vim-pandoc-syntax-simple'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -28,11 +29,10 @@ call plug#begin('~/.local/share/vim/plugins')
   call plug#end()
 
 
-"no arrow keys(vi only only!!)
-noremap <up> :echoerr "K, hello??"<CR>
-noremap <down> :echoerr "k, hello??"<CR>
-noremap <right> :echoerr "l, hello??"<CR>
-noremap <left> :echoerr "h, hello??"<CR>
+noremap <up> :echo "K, hello??"<CR>
+noremap <down> :echo "k, hello??"<CR>
+noremap <right> :echo "l, hello??"<CR>
+noremap <left> :echo "h, hello??"<CR>
 inoremap <up> <NOP>
 inoremap <down> <NOP>
 inoremap <left> <NOP>
@@ -62,7 +62,14 @@ inoremap <right> <NOP>
 	let g:go_highlight_diagnostic_warnings = 1
   let g:go_auto_sameids = 0
 
-	set updatetime=100
+	"au bufnewfile,bufRead *.go set spell"
+
+	au bufnewfile,bufRead *.bash* set ft=bash
+	au bufnewfile,bufRead *.profile set filetype=sh
+	au bufnewfile,bufRead *.crontab set filetype=crontab
+	au bufnewfile,bufRead *ssh/config set filetype=sshconfig
+	au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
+	au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
 
 	au FileType go nmap <leader>t :GoTest!<CR>
 	au FileType go nmap <leader>v :GoVet!<CR>
@@ -72,4 +79,3 @@ inoremap <right> <NOP>
 	au FileType go nmap <leader>l :GoMetaLinter!<CR>
 	au FileType go nmap <leader>r :GoRun!<CR>
 	
-  
