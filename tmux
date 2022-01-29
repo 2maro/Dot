@@ -4,7 +4,8 @@
 unbind C-b
 unbind C-a
 set -g prefix C-a
-
+#time
+set -sg esacpe-time 0
 # form vim/tmux d/y buffer sync
 set -g focus-events
 
