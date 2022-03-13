@@ -15,7 +15,6 @@
 	set encoding=utf-8
 	set fileencodings=utf-8
 	set updatetime=100
-	colorscheme Tomorrow-Night-Eighties
 	
 "Plugins"
 
