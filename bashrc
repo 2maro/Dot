@@ -18,6 +18,8 @@ export HRULEWIDTH=73
 export EDITOR=vi
 export VISUAL=vi
 export EDITOR_PREFIX=vi
+export GOPATH="$HOME/.local/share/go"
+export GOBIN="$HOME/.local/bin"
 export LESS_TERMCAP_mb=$(printf '\e[01;35m')
 export LESS_TERMCAP_md=$(printf '\e[01;33m')
 export LESS_TERMCAP_me=$(printf '\e[0m') 
@@ -166,3 +168,4 @@ _have kind && . <(kind completion bash)
 _have pandoc && . <(pandoc --bash-completion)
 _have yq && . <(yq shell-completion bash)
 
+export PATH="$PATH:/usr/local/protobuf/bin"

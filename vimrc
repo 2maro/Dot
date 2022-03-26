@@ -15,12 +15,12 @@
 	set encoding=utf-8
 	set fileencodings=utf-8
 	set updatetime=100
-	
+	set background=dark
 "Plugins"
 
 call plug#begin('~/.vim/plugins')
   Plug 'sheerun/vim-polyglot'
-	Plug 'chriskempson/tomorrow-theme'
+	Plug 'NLKNguyen/papercolor-theme'
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'rwxrob/vim-pandoc-syntax-simple'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -69,7 +69,6 @@ inoremap <right> <NOP>
 	au bufnewfile,bufRead *ssh/config set filetype=sshconfig
 	au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
 	au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
-
 	au FileType go nmap <leader>t :GoTest!<CR>
 	au FileType go nmap <leader>v :GoVet!<CR>
 	au FileType go nmap <leader>b :GoBuild!<CR>

@@ -59,4 +59,11 @@ set -g default-terminal "screen-256color"
 #set -g clock-mode-style 12
 setw -g clock-mode-colour cyan
 set -g base-index 1
+
+
+# color the pane borders nearly invisible
+# (when not using hacked tmux without them)
+set -g pane-border-style "fg=#1a1a1a,bg=#1a1a1a"
+set -g pane-active-border-style "fg=#1a1a1a,bg=#1a1a1a"
+
 setw -g pane-base-index 1
