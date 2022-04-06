@@ -20,6 +20,7 @@ export VISUAL=vi
 export EDITOR_PREFIX=vi
 export GOPATH="$HOME/.local/share/go"
 export GOBIN="$HOME/.local/bin"
+export PATH="$PATH:/usr/local/protobuf/bin"
 export LESS_TERMCAP_mb=$(printf '\e[01;35m')
 export LESS_TERMCAP_md=$(printf '\e[01;33m')
 export LESS_TERMCAP_me=$(printf '\e[0m') 
@@ -84,7 +85,7 @@ pathprepend \
 
 pathappend \
   /usr/local/opt/coreutils/libexec/gnubin \
-  /mingw64/bin \
+  /usr/share/bcc/tools \
   /usr/local/bin \
   /usr/local/sbin \
   /usr/local/games \
@@ -151,6 +152,9 @@ alias coin="clip '(yes|no)'"
 alias ls='ls -h --color=auto'
 alias scripts='cd $SCRIPTS'
 alias c='printf "\e[H\e[2J"'
+alias grep='grep -i --colour=auto'
+alias grep='egrep -i --colour=auto'
+alias grep='fgrep -i --colour=auto'
 
 # ----------------------------- functions ----------------------------
 
@@ -168,4 +172,3 @@ _have kind && . <(kind completion bash)
 _have pandoc && . <(pandoc --bash-completion)
 _have yq && . <(yq shell-completion bash)
 
-export PATH="$PATH:/usr/local/protobuf/bin"

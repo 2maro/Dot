@@ -1,6 +1,7 @@
 "basic  stuff
 "
 	syntax on 
+	filetype plugin on
 	set nu 
 	set smartindent
 	set smarttab
@@ -9,7 +10,6 @@
 	set nowritebackup
 	set hidden
 	set wildmenu
-	filetype plugin on
 	set textwidth=72
 	set ttyfast
 	set encoding=utf-8
@@ -25,7 +25,7 @@ call plug#begin('~/.vim/plugins')
   Plug 'rwxrob/vim-pandoc-syntax-simple'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
   Plug 'tpope/vim-fugitive'
-  call plug#end()
+call plug#end()
 
 
 noremap <up> :echo "K, hello??"<CR>
@@ -36,6 +36,12 @@ inoremap <up> <NOP>
 inoremap <down> <NOP>
 inoremap <left> <NOP>
 inoremap <right> <NOP>
+
+let mapleader=" "
+set spc=
+set spell
+set icon
+set shortmess=aoOtTI
 
 " pandoc
 
@@ -62,13 +68,24 @@ inoremap <right> <NOP>
   let g:go_auto_sameids = 0
 
 	"au bufnewfile,bufRead *.go set spell"
+	"au bufnewfile,bufRead *.bash* set ft=bash
 
-	au bufnewfile,bufRead *.bash* set ft=bash
+	au BufRead,BufNewFile *bash* let g:is_bash=1
 	au bufnewfile,bufRead *.profile set filetype=sh
 	au bufnewfile,bufRead *.crontab set filetype=crontab
 	au bufnewfile,bufRead *ssh/config set filetype=sshconfig
+	au bufnewfile,bufRead commands.yaml set spell
+
 	au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
 	au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
+
+	au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
+	au FileType * hi SpellRare ctermbg=234 ctermfg=darkred cterm=NONE
+	au FileType * hi vimGlobal ctermfg=black ctermbg=NONE
+	"au FileType * hi goComment ctermfg=black ctermbg=NONE
+	au FileType * hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
+	au FileType * hi Error ctermbg=234 ctermfg=darkred cterm=NONE
+
 	au FileType go nmap <leader>t :GoTest!<CR>
 	au FileType go nmap <leader>v :GoVet!<CR>
 	au FileType go nmap <leader>b :GoBuild!<CR>

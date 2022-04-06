@@ -1,11 +1,9 @@
-
-
 # change default meta key to same as screen
 unbind C-b
 unbind C-a
 set -g prefix C-a
 #time
-set -sg esacpe-time 0
+#set -sg esacpe-time 0
 # form vim/tmux d/y buffer sync
 set -g focus-events
 
@@ -53,17 +51,15 @@ set -g repeat-time 200
 bind -r r source-file ~/.tmux.conf
 set -g message-style "fg=red"
 
-#colors
-set -g default-terminal "screen-256color"
-
 #set -g clock-mode-style 12
 setw -g clock-mode-colour cyan
 set -g base-index 1
 
-
-# color the pane borders nearly invisible
-# (when not using hacked tmux without them)
+#colors
+set -g default-terminal "screen-256color"
+set -g status-right "#[fg=Gold]%d %b %Y %I:%M %p"
+setw -g clock-mode-colour cyan
+set -g base-index 1
+setw -g pane-base-index 1
 set -g pane-border-style "fg=#1a1a1a,bg=#1a1a1a"
 set -g pane-active-border-style "fg=#1a1a1a,bg=#1a1a1a"
-
-setw -g pane-base-index 1
