@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugins')
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'rwxrob/vim-pandoc-syntax-simple'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+	Plug 'tpope/vim-surround'
   Plug 'tpope/vim-fugitive'
 call plug#end()
 
