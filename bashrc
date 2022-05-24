@@ -16,6 +16,7 @@ export ZETDIR="$GHREPOS/zet"
 export TERM=xterm-256color
 export HRULEWIDTH=73
 export EDITOR=vi
+export CGO_ENABLED=0
 export VISUAL=vi
 export EDITOR_PREFIX=vi
 export GOPATH="$HOME/.local/share/go"
@@ -172,3 +173,6 @@ _have kind && . <(kind completion bash)
 _have pandoc && . <(pandoc --bash-completion)
 _have yq && . <(yq shell-completion bash)
 
+
+complete -C /usr/bin/terraform terraform
+complete -C /usr/bin/terraform tf

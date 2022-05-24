@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Runs a command when something changes in the directory
+
+pluseC() {
+  local dir="${PWD}"
+  haschanged "${dir}"
+  local count=$?
+  if (( count > 0)); then
+    "$@"
+  fi
+}
+
+while true; do
+  pluseC "$@"
+  sleep .5
+done
+

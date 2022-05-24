@@ -1,0 +1,11 @@
+#!/bin/bash
+
+## Number of changed files in the directory
+
+haschanged () {
+  local -a files
+  files=($(changed))
+  return ${#files[@]}
+}
+
+haschanged "$@"

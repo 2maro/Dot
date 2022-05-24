@@ -16,6 +16,7 @@
 	set fileencodings=utf-8
 	set updatetime=100
 	set background=dark
+
 "Plugins"
 
 call plug#begin('~/.vim/plugins')
@@ -24,6 +25,7 @@ call plug#begin('~/.vim/plugins')
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'rwxrob/vim-pandoc-syntax-simple'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+	Plug 'hashivim/vim-terraform'
 	Plug 'tpope/vim-surround'
   Plug 'tpope/vim-fugitive'
 call plug#end()
@@ -68,6 +70,9 @@ set shortmess=aoOtTI
 	let g:go_highlight_diagnostic_warnings = 1
   let g:go_auto_sameids = 0
 
+" terraform
+  let g:terraform_fmt_on_save = 1
+
 	"au bufnewfile,bufRead *.go set spell"
 	"au bufnewfile,bufRead *.bash* set ft=bash
 
@@ -80,6 +85,7 @@ set shortmess=aoOtTI
 	au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
 	au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
 
+	au FileType yaml set sw=4
 	au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
 	au FileType * hi SpellRare ctermbg=234 ctermfg=darkred cterm=NONE
 	au FileType * hi vimGlobal ctermfg=black ctermbg=NONE
@@ -94,4 +100,5 @@ set shortmess=aoOtTI
 	au FileType go nmap <leader>i :GoInfo<CR>
 	au FileType go nmap <leader>l :GoMetaLinter!<CR>
 	au FileType go nmap <leader>r :GoRun!<CR>
+	au FileType go nmap <leader>n iif err != nil {return err}<CR><ESC>
 	

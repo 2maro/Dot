@@ -1,0 +1,17 @@
+#!/bin/bash
+
+## Returns full path of changed files in the current dir
+
+changed () {
+  local dir="${PWD}"
+  local tmpname="onchange${dir//\//-}"
+  local tmp="/tmp/${tmpname}"
+  if [[ ! -e "${tmp}" ]]; then
+    find "${dir}" -type f -not -path '*testdata*'
+  else
+    find "${dir}" -newer "${tmp}" -type f -not -path '*testdata*'
+  fi
+  touch "${tmp}"
+}
+
+changed "$@"

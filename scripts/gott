@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+# fast testing in go
+
+
+clear
+got "$@"
+pulsechange got "$@"
