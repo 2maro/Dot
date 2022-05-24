@@ -86,8 +86,8 @@ set shortmess=aoOtTI
 	au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
 
 	au FileType yaml set sw=4
-	au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
-	au FileType * hi SpellRare ctermbg=234 ctermfg=darkred cterm=NONE
+	"au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
+	"au FileType * hi SpellRare ctermbg=234 ctermfg=darkred cterm=NONE
 	au FileType * hi vimGlobal ctermfg=black ctermbg=NONE
 	"au FileType * hi goComment ctermfg=black ctermbg=NONE
 	au FileType * hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE

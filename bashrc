@@ -39,7 +39,6 @@ export LESSCLOSE="/usr/bin/lesspipe %s %s";
 
 # ------------------------------ history -----------------------------
 
-set -o vi
 HISTSIZE=1000
 HISTFILESIZE=2000
 HISTCONTROL=ignoreboth
@@ -102,6 +101,7 @@ export CDPATH=".:$SCRIPTS:$DOT:$REPOS:/media/$USER:$HOME"
 
 # ------------------------ bash shell options ------------------------
 
+set -o vi
 shopt -s histappend
 shopt -s checkwinsize
 shopt -s expand_aliases
