@@ -163,7 +163,7 @@ alias grep='fgrep -i --colour=auto'
 
 # ------------- source external dependencies / completion ------------
 
-owncomp=(zet)
+owncomp=(yq gh ./setup)
 
 for i in ${owncomp[@]}; do complete -C $i $i; done
 
