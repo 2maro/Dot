@@ -1,4 +1,4 @@
-"basic  stuff
+"basic  stuff"
 "
 	syntax on 
 	filetype plugin on
@@ -20,14 +20,14 @@
 "Plugins"
 
 call plug#begin('~/.vim/plugins')
-  Plug 'sheerun/vim-polyglot'
+	Plug 'sheerun/vim-polyglot'
 	Plug 'NLKNguyen/papercolor-theme'
-  Plug 'vim-pandoc/vim-pandoc'
-  Plug 'rwxrob/vim-pandoc-syntax-simple'
-  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+	Plug 'vim-pandoc/vim-pandoc'
+	Plug 'rwxrob/vim-pandoc-syntax-simple'
+	Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 	Plug 'hashivim/vim-terraform'
 	Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-fugitive'
 call plug#end()
 
 

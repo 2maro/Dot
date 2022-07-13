@@ -7,11 +7,10 @@ esac
 
 export USER="$(whoami)"
 export GITUSER="$USER"
-export REPOS="$HOME/Repos"
+export REPOS="$HOME/repo"
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/Dot"
-#change this later
-export SCRIPTS="$HOME/Repos/github.com/2maro/Dot/scripts"
+export SCRIPTS="$HOME/repo/github.com/2maro/Dot/scripts"
 export ZETDIR="$GHREPOS/zet"
 export TERM=xterm-256color
 export HRULEWIDTH=73
@@ -156,7 +155,7 @@ alias c='printf "\e[H\e[2J"'
 alias grep='grep -i --colour=auto'
 alias grep='egrep -i --colour=auto'
 alias grep='fgrep -i --colour=auto'
-
+alias vi=vim
 # ----------------------------- functions ----------------------------
 
 
