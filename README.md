@@ -1,3 +1,3 @@
-#Personal Dotfiles and Scripts
+Personal Dotfiles and Scripts
 
 	
