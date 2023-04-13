@@ -2,8 +2,7 @@
 unbind C-b
 unbind C-a
 set -g prefix C-a
-#time
-#set -sg esacpe-time 0
+
 # form vim/tmux d/y buffer sync
 set -g focus-events
 
@@ -12,7 +11,6 @@ bind-key -n C-y send-prefix
 
 # add double-tap meta key to toggle last window
 bind-key C-a last-window
-
 
 # create more intuitive split key combos (same as modern screen)
 unbind |
@@ -43,23 +41,37 @@ bind -r j select-pane -D
 bind -r h select-pane -L
 bind -r l select-pane -R
 
+#color the pane Borders
+set -g pane-border-style "fg=#171717"
+set -g pane-active-border-style "fg=#171717"
+
+set -g status-style "fg=#665c54"
+set -g status-bg default
+#set -g status-position top
+set -g automatic-rename off
+set -g status-interval 1
+set -g status-left ""
+set -g status-right ""
+
 # avoid cursor movement messing with resize
 set -g repeat-time 200
 #set -s escape-time 0
 
 #reload configuration
 bind -r r source-file ~/.tmux.conf
-set -g message-style "fg=red"
 
+set -g message-style "fg=red"
 #set -g clock-mode-style 12
 setw -g clock-mode-colour cyan
 set -g base-index 1
 
 #colors
 set -g default-terminal "screen-256color"
-set -g status-right "#[fg=Gold]%d %b %Y %I:%M %p"
+set -g status-interval 1
+set -g status-right "#[fg=Gold]%b/%d/%y %I:%M%p #(pomo)"
 setw -g clock-mode-colour cyan
 set -g base-index 1
 setw -g pane-base-index 1
-set -g pane-border-style "D0CFCC"
-set -g pane-active-border-style "D0CFCC"
+#set -g window-status-format ""
+#set -g window-status-current-format ""
+set -g history-file ~/.tmux_history

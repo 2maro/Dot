@@ -11,16 +11,16 @@ export REPOS="$HOME/repo"
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/Dot"
 export SCRIPTS="$HOME/repo/github.com/2maro/Dot/scripts"
-export ZETDIR="$GHREPOS/zet"
 export TERM=xterm-256color
 export HRULEWIDTH=73
-export EDITOR=vi
 export CGO_ENABLED=0
 export VISUAL=vi
+export EDITOR=vi
 export EDITOR_PREFIX=vi
 export GOPATH="$HOME/.local/share/go"
 export GOBIN="$HOME/.local/bin"
 export PATH="$PATH:/usr/local/protobuf/bin"
+export LESS="-FXR"
 export LESS_TERMCAP_mb=$(printf '\e[01;35m')
 export LESS_TERMCAP_md=$(printf '\e[01;33m')
 export LESS_TERMCAP_me=$(printf '\e[0m') 
@@ -31,15 +31,15 @@ export LESS_TERMCAP_us=$(printf '\e[01;4m')
 
 # ------------------------------- pager ------------------------------
 
-#if [[ -x /usr/bin/lesspipe ]]; then
-export LESSOPEN="| /usr/bin/lesspipe %s";
-export LESSCLOSE="/usr/bin/lesspipe %s %s";
-#fi
+if [[ -x /usr/bin/lesspipe ]]; then
+  export LESSOPEN="| /usr/bin/lesspipe %s";
+  export LESSCLOSE="/usr/bin/lesspipe %s %s";
+fi
 
 # ------------------------------ history -----------------------------
 
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 HISTCONTROL=ignoreboth
 
 # ----------------------------- dircolors ----------------------------
@@ -153,16 +153,20 @@ alias ls='ls -h --color=auto'
 alias scripts='cd $SCRIPTS'
 alias c='printf "\e[H\e[2J"'
 alias grep='grep -i --colour=auto'
-alias grep='egrep -i --colour=auto'
 alias grep='fgrep -i --colour=auto'
+alias diff='diff --color'
+alias tree='tree -a'
+alias temp='cd $(mktemp -d)'
 alias vi=vim
 # ----------------------------- functions ----------------------------
+
+_have() { type "$1" &>/dev/null; }
 
 
 
 # ------------- source external dependencies / completion ------------
 
-owncomp=(yq gh ./setup)
+owncomp=(kind pandoc helm kubectl yq gh ./setup)
 
 for i in ${owncomp[@]}; do complete -C $i $i; done
 
@@ -171,7 +175,10 @@ _have gh && . <(gh completion -s bash)
 _have kind && . <(kind completion bash)
 _have pandoc && . <(pandoc --bash-completion)
 _have yq && . <(yq shell-completion bash)
+_have helm && . <(helm completion bash)
 
 
 complete -C /usr/bin/terraform terraform
 complete -C /usr/bin/terraform tf
+
+complete -C /$HOME/$USER/.local/bin/terraform terraform
