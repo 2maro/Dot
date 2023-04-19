@@ -178,7 +178,5 @@ _have yq && . <(yq shell-completion bash)
 _have helm && . <(helm completion bash)
 
 
-complete -C /usr/bin/terraform terraform
-complete -C /usr/bin/terraform tf
-
-complete -C /$HOME/$USER/.local/bin/terraform terraform
+complete -C '/usr/local/bin/aws_completer' aws
+complete -C '/$HOME/.local/bin/terraform' terraform
