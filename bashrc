@@ -3,7 +3,7 @@ case $- in
       *) return;;
 esac
 
-#evnioment variables
+# ------------------------------- env variables ------------------------------
 
 export USER="$(whoami)"
 export GITUSER="$USER"
@@ -110,7 +110,6 @@ shopt -s extglob
 
 #---------------------------shell promt-------------------------------
 
-
 PROMPT_LONG=20
 PROMPT_MAX=95
 PROMPT_AT=@
@@ -130,7 +129,7 @@ __ps1() {
   countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
 
   [[ $B = master || $B = main ]] && b="$r"
-  [[ -n "$B" ]] && B="$g($b$B$g)"
+  [[ -n "$B" ]] && B="$g[$b$B$g]"
 
   short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
   long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
@@ -146,6 +145,7 @@ __ps1() {
 }
 
 PROMPT_COMMAND="__ps1"
+
 # ------------------------------ aliases -----------------------------
 
 alias coin="clip '(yes|no)'"
@@ -162,8 +162,6 @@ alias vi=vim
 
 _have() { type "$1" &>/dev/null; }
 
-
-
 # ------------- source external dependencies / completion ------------
 
 owncomp=(kind pandoc helm kubectl yq gh ./setup)
@@ -176,7 +174,6 @@ _have kind && . <(kind completion bash)
 _have pandoc && . <(pandoc --bash-completion)
 _have yq && . <(yq shell-completion bash)
 _have helm && . <(helm completion bash)
-
 
 complete -C '/usr/local/bin/aws_completer' aws
 complete -C '/$HOME/.local/bin/terraform' terraform

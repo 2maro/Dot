@@ -24,6 +24,9 @@
   set t_vb=
   set icon
   set shortmess=aoOtTI
+  set spc=
+  set showmode
+
 
 nnoremap <C-L> :nohl<CR><C-L>
 hi SpecialKey ctermfg=black ctermbg=NONE
@@ -71,7 +74,6 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   Plug 'tpope/vim-fugitive'
   call plug#end()
 
-
   noremap <up> :echo "K, hello??"<CR>
   noremap <down> :echo "k, hello??"<CR>
   noremap <right> :echo "l, hello??"<CR>
@@ -82,9 +84,6 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   inoremap <right> <NOP>
 
   let mapleader=" "
-  set spc=
-  set icon
-  set shortmess=aoOtTI
 
   " pandoc
 
@@ -109,10 +108,11 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   let g:go_highlight_diagnostic_errors = 1
   let g:go_highlight_diagnostic_warnings = 1
   let g:go_auto_sameids = 0
-
 " terraform
-  let g:terraform_fmt_on_save = 1
 
+  let g:terraform_fmt_on_save = 1
+  autocmd FileType * :highlight Pmenu ctermbg=234 
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
   au BufRead,BufNewFile *bash* let g:is_bash=1
   au bufnewfile,bufRead *.profile set filetype=sh
   au bufnewfile,bufRead *.crontab set filetype=crontab
@@ -133,5 +133,4 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   "au FileType * hi goComment ctermfg=black ctermbg=NONE
   au FileType * hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
   au FileType * hi Error ctermbg=234 ctermfg=darkred cterm=NONE
-
   au FileType go nmap <leader>n if err != nil {return err}<CR><ESC>
