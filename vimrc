@@ -72,7 +72,11 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   Plug 'hashivim/vim-terraform'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-fugitive'
+  Plug 'dense-analysis/ale'
+
   call plug#end()
+
+
 
   noremap <up> :echo "K, hello??"<CR>
   noremap <down> :echo "k, hello??"<CR>
@@ -85,13 +89,17 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
 
   let mapleader=" "
 
-  " pandoc
+  " ale "
+  let g:ale_sign_error = '☠'
+  let g:ale_sign_warning = '🙄'
+  let g:ale_linters = {'go': ['gometalinter', 'gofmt','gobuild']}
 
+ 
+  " pandoc
   let g:pandoc#formatting#mode = 'h' " A'
   let g:pandoc#formatting#textwidth = 72
 
-" golang"
-
+  "golang"
   let g:go_fmt_fail_silently = 0
   let g:go_fmt_command = 'goimports'
   let g:go_fmt_autosave = 1
@@ -108,8 +116,8 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   let g:go_highlight_diagnostic_errors = 1
   let g:go_highlight_diagnostic_warnings = 1
   let g:go_auto_sameids = 0
-" terraform
 
+  "terraform"
   let g:terraform_fmt_on_save = 1
   autocmd FileType * :highlight Pmenu ctermbg=234 
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
