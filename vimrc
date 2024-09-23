@@ -70,7 +70,7 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   Plug 'sheerun/vim-polyglot'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
   Plug 'hashivim/vim-terraform'
-  Plug 'tpope/vim-surround'
+  Plug 'machakann/vim-sandwich' 
   Plug 'tpope/vim-fugitive'
   Plug 'dense-analysis/ale'
 
@@ -92,7 +92,7 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   " ale "
   let g:ale_sign_error = '☠'
   let g:ale_sign_warning = '🙄'
-  let g:ale_linters = {'go': ['gometalinter', 'gofmt','gobuild']}
+  let g:ale_linters = {'go': ['golangci-lint', 'gofmt','gobuild']}
 
  
   " pandoc
@@ -117,10 +117,12 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   let g:go_highlight_diagnostic_warnings = 1
   let g:go_auto_sameids = 0
 
+  " start at last place you were editing
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
   "terraform"
   let g:terraform_fmt_on_save = 1
   autocmd FileType * :highlight Pmenu ctermbg=234 
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
   au BufRead,BufNewFile *bash* let g:is_bash=1
   au bufnewfile,bufRead *.profile set filetype=sh
   au bufnewfile,bufRead *.crontab set filetype=crontab

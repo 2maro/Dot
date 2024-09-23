@@ -1,3 +1,5 @@
+# shellcheck disable=SC1090,SC1091
+
 case $- in
     *i*) ;;
       *) return;;
@@ -21,13 +23,13 @@ export GOPATH="$HOME/.local/share/go"
 export GOBIN="$HOME/.local/bin"
 export PATH="$PATH:/usr/local/protobuf/bin"
 export LESS="-FXR"
-export LESS_TERMCAP_mb=$(printf '\e[01;35m')
-export LESS_TERMCAP_md=$(printf '\e[01;33m')
-export LESS_TERMCAP_me=$(printf '\e[0m') 
-export LESS_TERMCAP_se=$(printf '\e[0m')
-export LESS_TERMCAP_so=$(printf '\e[01;34m')
-export LESS_TERMCAP_ue=$(printf '\e[0m')
-export LESS_TERMCAP_us=$(printf '\e[01;4m')
+export LESS_TERMCAP_mb=$'\e[01;35m'
+export LESS_TERMCAP_md=$'\e[01;33m'
+export LESS_TERMCAP_me=$'\e[0m' 
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;34m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[01;4m'
 
 # ------------------------------- pager ------------------------------
 
@@ -108,7 +110,7 @@ shopt -s globstar
 shopt -s dotglob
 shopt -s extglob
 
-#---------------------------shell promt-------------------------------
+#---------------------------shell prompt-------------------------------
 
 PROMPT_LONG=20
 PROMPT_MAX=95
@@ -129,7 +131,7 @@ __ps1() {
   countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
 
   [[ $B = master || $B = main ]] && b="$r"
-  [[ -n "$B" ]] && B="$g[$b$B$g]"
+  [[ -n "$B" ]] && B="$g($b$B$g)"
 
   short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
   long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
@@ -166,7 +168,7 @@ _have() { type "$1" &>/dev/null; }
 
 owncomp=(kind pandoc helm kubectl yq gh ./setup)
 
-for i in ${owncomp[@]}; do complete -C $i $i; done
+for i in "${owncomp[@]}"; do complete -C "$i" "$i"; done
 
 _have kubectl && . <(kubectl completion bash)
 _have gh && . <(gh completion -s bash)
@@ -176,4 +178,4 @@ _have yq && . <(yq shell-completion bash)
 _have helm && . <(helm completion bash)
 
 complete -C '/usr/local/bin/aws_completer' aws
-complete -C '/$HOME/.local/bin/terraform' terraform
+complete -C '/usr/bin/terraform' terraform
