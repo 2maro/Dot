@@ -1,4 +1,4 @@
-# shellcheck disable=SC1090,SC1091
+# shellcheck disable=SC1090,SC1091,SC2155
 
 case $- in
     *i*) ;;

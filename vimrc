@@ -63,7 +63,9 @@ au FileType * hi IncSearch ctermbg=236 cterm=NONE ctermfg=darkred
 au FileType * hi MatchParen ctermbg=236 ctermfg=darkred
 au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
 au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
-au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
+au FileType yaml hi yamlBlockMappingKey ctermfg=81
+au FileType yaml set sw=2
+au FileType bash set sw=2
 
 "Plugins"
   call plug#begin('~/.vim/plugins')
@@ -132,15 +134,14 @@ au FileType yaml hi yamlBlockMappingKey ctermfg=NONE
   au bufnewfile,bufRead *gitconfig set filetype=gitconfig
   au bufnewfile,bufRead *ssh/config set filetype=sshconfig
   au bufnewfile,bufRead .dockerignore set filetype=gitignore
-
+  au bufnewfile,bufRead *.txt set spell
   au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
   au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
-
+  au BufNewFile,BufRead *.yml,*.yaml set filetype=yaml
   au FileType yaml set sw=4
-  "au FileType * hi SpellBad ctermbg=234 ctermfg=darkred cterm=NONE
-  "au FileType * hi SpellRare ctermbg=234 ctermfg=darkred cterm=NONE
   au FileType * hi vimGlobal ctermfg=black ctermbg=NONE
-  "au FileType * hi goComment ctermfg=black ctermbg=NONE
+  au FileType * hi goComment ctermfg=black ctermbg=NONE
   au FileType * hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE
   au FileType * hi Error ctermbg=234 ctermfg=darkred cterm=NONE
+
   au FileType go nmap <leader>n if err != nil {return err}<CR><ESC>
