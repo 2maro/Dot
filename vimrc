@@ -26,9 +26,10 @@
   set shortmess=aoOtTI
   set spc=
   set showmode
-
-
+  set noshowcmd
+  
 nnoremap <C-L> :nohl<CR><C-L>
+
 hi SpecialKey ctermfg=black ctermbg=NONE
 hi ModeMsg ctermfg=black cterm=NONE ctermbg=NONE
 hi MoreMsg ctermfg=black ctermbg=NONE
@@ -78,24 +79,17 @@ au FileType bash set sw=2
 
   call plug#end()
 
-
-
-  noremap <up> :echo "K, hello??"<CR>
-  noremap <down> :echo "k, hello??"<CR>
-  noremap <right> :echo "l, hello??"<CR>
-  noremap <left> :echo "h, hello??"<CR>
-  inoremap <up> <NOP>
-  inoremap <down> <NOP>
-  inoremap <left> <NOP>
-  inoremap <right> <NOP>
-
   let mapleader=" "
 
   " ale "
   let g:ale_sign_error = '☠'
   let g:ale_sign_warning = '🙄'
-  let g:ale_linters = {'go': ['golangci-lint', 'gofmt','gobuild']}
-
+  let g:ale_linters = {
+      \ 'go': ['golangci-lint', 'gofmt', 'gobuild'],
+      \ 'terraform': ['tflint'],
+      \ 'yaml': ['yamllint'],
+      \ 'dockerfile': ['hadolint']
+  \ }
  
   " pandoc
   let g:pandoc#formatting#mode = 'h' " A'
@@ -122,9 +116,10 @@ au FileType bash set sw=2
   " start at last place you were editing
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+  autocmd FileType * :highlight Pmenu ctermbg=234 
+
   "terraform"
   let g:terraform_fmt_on_save = 1
-  autocmd FileType * :highlight Pmenu ctermbg=234 
   au BufRead,BufNewFile *bash* let g:is_bash=1
   au bufnewfile,bufRead *.profile set filetype=sh
   au bufnewfile,bufRead *.crontab set filetype=crontab
@@ -138,7 +133,7 @@ au FileType bash set sw=2
   au FileType markdown,pandoc hi Title ctermfg=yellow ctermbg=NONE
   au FileType markdown,pandoc hi Operator ctermfg=yellow ctermbg=NONE
   au BufNewFile,BufRead *.yml,*.yaml set filetype=yaml
-  au FileType yaml set sw=4
+  autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
   au FileType * hi vimGlobal ctermfg=black ctermbg=NONE
   au FileType * hi goComment ctermfg=black ctermbg=NONE
   au FileType * hi ErrorMsg ctermbg=234 ctermfg=darkred cterm=NONE

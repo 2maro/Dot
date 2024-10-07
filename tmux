@@ -55,7 +55,7 @@ set -g status-right ""
 
 # avoid cursor movement messing with resize
 set -g repeat-time 200
-#set -s escape-time 0
+set -s escape-time 0
 
 #reload configuration
 bind -r r source-file ~/.tmux.conf

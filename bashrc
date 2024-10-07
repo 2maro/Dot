@@ -7,21 +7,28 @@ esac
 
 # ------------------------------- env variables ------------------------------
 
-export USER="$(whoami)"
+export USER="${USER: -$(whoami)}"
 export GITUSER="$USER"
+
 export REPOS="$HOME/repo"
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/Dot"
 export SCRIPTS="$HOME/repo/github.com/2maro/Dot/scripts"
-export TERM=xterm-256color
+
+export TERM="${TERM:-xterm-256color}"
 export HRULEWIDTH=73
-export CGO_ENABLED=0
+
 export VISUAL=vi
 export EDITOR=vi
 export EDITOR_PREFIX=vi
-export GOPATH="$HOME/.local/share/go"
-export GOBIN="$HOME/.local/bin"
-export PATH="$PATH:/usr/local/protobuf/bin"
+
+if command -v go &>/dev/null; then
+    export GOPATH="${GOPATH:-$HOME/.local/share/go}"
+    export GOBIN="${GOBIN:-$HOME/.local/bin}"
+    export PATH="$PATH:$GOBIN"
+    export CGO_ENABLED=0
+fi
+
 export LESS="-FXR"
 export LESS_TERMCAP_mb=$'\e[01;35m'
 export LESS_TERMCAP_md=$'\e[01;33m'
@@ -33,9 +40,9 @@ export LESS_TERMCAP_us=$'\e[01;4m'
 
 # ------------------------------- pager ------------------------------
 
-if [[ -x /usr/bin/lesspipe ]]; then
-  export LESSOPEN="| /usr/bin/lesspipe %s";
-  export LESSCLOSE="/usr/bin/lesspipe %s %s";
+if command -v lesspipe &>/dev/null; then
+  export LESSOPEN="| $(command -v lesspipe) %s"
+  export LESSCLOSE="$(command -v lesspipe) %s %s"
 fi
 
 # ------------------------------ history -----------------------------
@@ -157,7 +164,7 @@ alias c='printf "\e[H\e[2J"'
 alias grep='grep -i --colour=auto'
 alias grep='fgrep -i --colour=auto'
 alias diff='diff --color'
-alias tree='tree -a'
+alias tree='tree -a -C'
 alias temp='cd $(mktemp -d)'
 alias vi=vim
 # ----------------------------- functions ----------------------------
