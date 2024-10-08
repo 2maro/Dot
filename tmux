@@ -1,77 +1,103 @@
-# change default meta key to same as screen
+# ==============================================================================
+#                               Prefix and Key Bindings
+# ==============================================================================
+
+# Set Ctrl+a as the prefix key (like GNU Screen)
 unbind C-b
 unbind C-a
 set -g prefix C-a
 
-# form vim/tmux d/y buffer sync
-set -g focus-events
-
-# use a different prefix for nested
+# Use Ctrl+y to send prefix in nested tmux sessions
 bind-key -n C-y send-prefix
 
-# add double-tap meta key to toggle last window
+# Quick toggle to last window with double-tap of prefix
 bind-key C-a last-window
 
-# create more intuitive split key combos (same as modern screen)
+# Reload tmux configuration
+bind r source-file ~/.tmux.conf \; display-message "Tmux config
+reloaded"
+
+# Split pane shortcuts (similar to modern screen)
 unbind |
+unbind '\'
 bind | split-window -h
 bind '\' split-window -h
 bind 'C-\' split-window -h
 
 unbind -
+unbind '_'
 bind - split-window -v
-bind '-' split-window -v
 bind '_' split-window -v
 
-# vi for copy mode
-setw -g mode-keys vi
-
-# vi for command status
-set -g status-keys vi
-
-# vi keys to resize
-bind -r C-k resize-pane -U 1
-bind -r C-j resize-pane -D 1
-bind -r C-h resize-pane -L 1
-bind -r C-l resize-pane -R 1
-
-# vi keys to navigate panes
-bind -r k select-pane -U
-bind -r j select-pane -D
+# Pane navigation using Vim keys
 bind -r h select-pane -L
+bind -r j select-pane -D
+bind -r k select-pane -U
 bind -r l select-pane -R
 
-#color the pane Borders
-set -g pane-border-style "fg=#171717"
-set -g pane-active-border-style "fg=#171717"
+# Pane resizing using Ctrl + Vim keys
+bind -r C-h resize-pane -L 1
+bind -r C-j resize-pane -D 1
+bind -r C-k resize-pane -U 1
+bind -r C-l resize-pane -R 1
 
-set -g status-style "fg=#665c54"
-set -g status-bg default
+# ==============================================================================
+#                               Copy Mode and Keys
+# ==============================================================================
+
+# Use vi keys in copy mode
+setw -g mode-keys vi
+
+# Use vi keys in the status line
+set -g status-keys vi
+
+# Set focus events for terminal applications
+set -g focus-events on
+
+# ==============================================================================
+#                                  Appearance
+# ==============================================================================
+
+# Set pane border colors
+set -g pane-border-style fg=#171717
+set -g pane-active-border-style fg=#171717
+
+# Status bar style
+set -g status-style fg=#665c54,bg=default
 #set -g status-position top
-set -g automatic-rename off
 set -g status-interval 1
-set -g status-left ""
-set -g status-right ""
+set -g status-left ''
+set -g status-right "#[fg=gold]%b/%d/%y %I:%M%p"
 
-# avoid cursor movement messing with resize
-set -g repeat-time 200
-set -s escape-time 0
+# Message style
+set -g message-style fg=red
 
-#reload configuration
-bind -r r source-file ~/.tmux.conf
-
-set -g message-style "fg=red"
-#set -g clock-mode-style 12
+# Set clock mode color
 setw -g clock-mode-colour cyan
-set -g base-index 1
 
-#colors
+# Set default terminal to support 256 colors
 set -g default-terminal "screen-256color"
-set -g status-interval 1
-set -g status-right "#[fg=Gold]%b/%d/%y %I:%M%p #(pomo)"
-setw -g clock-mode-colour cyan
+
+# Disable automatic window renaming
+set -g automatic-rename off
+
+# Base index for windows and panes starts at 1
 set -g base-index 1
 setw -g pane-base-index 1
-#set -g window-status-format ""
-#set -g window-status-current-format ""
+
+# ===========================================================================
+#                               Performance Tweaks
+# ===========================================================================
+
+# Reduce delay when entering copy mode or switching panes
+set -s escape-time 0
+
+# Adjust repeat time for key bindings
+set -g repeat-time 200
+
+# ============================================================================
+#                                  Miscellaneous
+# ============================================================================
+
+# Set history file
 set -g history-file ~/.tmux_history
