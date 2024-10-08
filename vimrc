@@ -134,9 +134,9 @@ Plug 'dense-analysis/ale'                          " Asynchronous linting
 
 call plug#end()
 
-" ==============================================================================
+" =============================================================================
 "                              Plugin Configurations
-" ==============================================================================
+" =============================================================================
 
 " --- ALE Configuration ---
 let g:ale_sign_error = '☠'
@@ -195,9 +195,9 @@ autocmd BufRead,BufNewFile .dockerignore set filetype=gitignore
 " Highlight Pmenu for autocompletion menu
 autocmd FileType * highlight Pmenu ctermbg=234 ctermfg=white
 
-" ==============================================================================
+" =============================================================================
 "                              Additional Mappings
-" ==============================================================================
+" =============================================================================
 
 " Go-specific mappings
 autocmd FileType go nnoremap <leader>n if err != nil { return err }<CR><Esc>
