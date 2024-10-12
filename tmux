@@ -15,7 +15,7 @@ bind-key C-a last-window
 
 # Reload tmux configuration
 bind r source-file ~/.tmux.conf \; display-message "Tmux config
-reloaded"
+ reloaded"
 
 # Split pane shortcuts (similar to modern screen)
 unbind |
@@ -53,6 +53,9 @@ set -g status-keys vi
 
 # Set focus events for terminal applications
 set -g focus-events on
+
+# Set Mouse off on tmux
+set -g mouse off 
 
 # ==============================================================================
 #                                  Appearance

@@ -7,3 +7,8 @@ ln -sf "$PWD/dircolors"  "$HOME/.dircolors"
 ln -sf "$PWD/vimrc" "$HOME/.vimrc"
 ln -sf "$PWD/tmux" "$HOME/.tmux.conf"
 ln -sf "$PWD/profile" "$HOME/.profile"
+
+for i in vim git gh tmux podman iam; do
+    cd $i && ./setup
+    cd -
+done

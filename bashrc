@@ -68,6 +68,7 @@ fi
 export HISTSIZE=10000
 export HISTFILESIZE=20000
 export HISTCONTROL=ignoreboth 
+export HISTCONTROL=ignoreddups
 
 # ============================================================================
 #                                   Dircolors
@@ -126,6 +127,7 @@ pathappend \
   /snap/bin \
   /sbin \
   /bin
+
 
 # Export PATH once after modifications
 export PATH

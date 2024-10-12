@@ -61,7 +61,7 @@ set noshowcmd
 set noerrorbells
 set visualbell
 
-set mouse=
+set mouse=a
 
 
 " ==============================================================================
