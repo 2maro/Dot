@@ -37,7 +37,7 @@ set ignorecase        " Case-insensitive search
 set smartcase         " Case-sensitive if uppercase letters are used
 
 " History and undo
-set history=1000
+set history=100
 set undofile          " Enable persistent undo
 set undodir=~/.vim/undodir
 
@@ -61,8 +61,9 @@ set noshowcmd
 set noerrorbells
 set visualbell
 
-set mouse=a
-
+set mouse=
+set noruler
+set nonumber
 
 " ==============================================================================
 "                                Key Mappings
@@ -95,6 +96,7 @@ hi vimTodo ctermbg=236 ctermfg=darkred
 hi Todo ctermbg=236 ctermfg=darkred
 hi IncSearch ctermbg=236 cterm=NONE ctermfg=darkred
 hi MatchParen ctermbg=236 ctermfg=darkred
+hi SignColumn ctermbg=NONE
 
 " FileType-specific highlighting
 autocmd FileType * hi Special ctermfg=cyan
@@ -144,12 +146,25 @@ let g:ale_sign_warning = '⚠️'
 let g:ale_linters = {
       \ 'go': ['golangci-lint', 'gofmt', 'gobuild'],
       \ 'terraform': ['tflint'],
+      \ 'sh': ['shellcheck'],
+      \ 'bash': ['shellcheck'],
       \ 'yaml': ['yamllint'],
       \ 'dockerfile': ['hadolint'],
 \ }
 
 " Use quickfix window for ALE
 let g:ale_set_quickfix = 1
+set signcolumn=yes
+let g:ale_set_signs = 1
+let g:ale_linter_aliases = {'bash': 'sh'}
+
+let g:ale_fixers = {
+        \'sh': ['shfmt'],
+        \'bash': ['shfmt'],
+        \}
+let g:ale_fix_on_save = 1
+
+
 
 " --- vim-go Configuration ---
 let g:go_fmt_command = 'goimports'
