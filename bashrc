@@ -67,8 +67,7 @@ fi
 # History settings
 export HISTSIZE=10000
 export HISTFILESIZE=20000
-export HISTCONTROL=ignoreboth 
-export HISTCONTROL=ignoreddups
+export HISTORY_IGNORE="(ls|cd|pwd|exit|cd)*"
 
 # ============================================================================
 #                                   Dircolors
@@ -211,7 +210,7 @@ __ps1() {
     [[ -n "$B" ]] && B="$g($b$B$g)"
 
     # Construct prompt variations
-    short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
+    short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x"
     long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
     double="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
 
