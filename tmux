@@ -52,7 +52,7 @@ setw -g mode-keys vi
 set -g status-keys vi
 
 # Set focus events for terminal applications
-set -g focus-events on
+set -g focus-events off
 
 # Set Mouse off on tmux
 set -g mouse off 
@@ -68,7 +68,7 @@ set -g pane-active-border-style fg=#171717
 # Status bar style
 set -g status-style fg=#665c54,bg=default
 #set -g status-position top
-set -g status-interval 1
+set -g status-interval 5
 set -g status-left ''
 set -g status-right "#[fg=gold]%b/%d/%y %I:%M%p"
 
@@ -93,10 +93,10 @@ setw -g pane-base-index 1
 # ===========================================================================
 
 # Reduce delay when entering copy mode or switching panes
-set -s escape-time 0
+set -s escape-time 10
 
 # Adjust repeat time for key bindings
-set -g repeat-time 200
+set -g repeat-time 100
 
 # ============================================================================
 #                                  Miscellaneous
