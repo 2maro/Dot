@@ -8,6 +8,7 @@ set smarttab
 set expandtab         " Use spaces instead of tabs
 set shiftwidth=4      " Number of spaces for each indentation level
 set tabstop=4         " Number of spaces that a <Tab> in the file counts for
+set signcolumn=yes
 
 " Disable backup files
 set nobackup
@@ -55,7 +56,6 @@ let mapleader=" "
 
 " Remove command line messages
 set noshowmode
-set noshowcmd
 
 " Disable sound on errors
 set noerrorbells
@@ -143,28 +143,36 @@ call plug#end()
 " --- ALE Configuration ---
 let g:ale_sign_error = '☠'
 let g:ale_sign_warning = '⚠️'
+
 let g:ale_linters = {
       \ 'go': ['golangci-lint', 'gofmt', 'gobuild'],
       \ 'terraform': ['tflint'],
       \ 'sh': ['shellcheck'],
       \ 'bash': ['shellcheck'],
-      \ 'yaml': ['yamllint'],
+      \ 'yaml': ['ansible_lint','yamllint'],
       \ 'dockerfile': ['hadolint'],
 \ }
 
-" Use quickfix window for ALE
 let g:ale_set_quickfix = 1
-set signcolumn=yes
 let g:ale_set_signs = 1
 let g:ale_linter_aliases = {'bash': 'sh'}
 
 let g:ale_fixers = {
-        \'sh': ['shfmt'],
-        \'bash': ['shfmt'],
-        \}
+      \ 'go': ['gofmt', 'goimports'],
+      \ 'terraform': ['terraform'],
+      \ 'sh': ['shfmt'],
+      \ 'bash': ['shfmt'],
+      \ 'yaml': ['prettier'],
+\ }
+
 let g:ale_fix_on_save = 1
-
-
+let g:ale_virtualtext_cursor = 'current'
+let g:ale_completion_enabled = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_enter = 1
+let g:ale_yaml_yamllint_options = '--disable-rule=line-length'
+let g:ale_yaml_ansible_lint_options = '--skip-list var-naming[no-role-prefix]'
 
 " --- vim-go Configuration ---
 let g:go_fmt_command = 'goimports'
@@ -172,6 +180,7 @@ let g:go_fmt_autosave = 1
 let g:go_gopls_enabled = 1
 let g:go_def_mapping_enabled = 0
 let g:go_auto_type_info = 1
+
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
@@ -180,11 +189,12 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_format_strings = 1
 let g:go_auto_sameids = 0
-
+let g:ale_yaml_ansible_lint_options = '--skip-list var-naming[no-role-prefix]'
+let g:go_version_warning = 0
 " --- vim-terraform Configuration ---
 let g:terraform_fmt_on_save = 1
 let g:terraform_align = 1
-
+let g:terraform_highlight_errors = 1
 
 
 " Start editing at the last known position
@@ -200,13 +210,18 @@ autocmd FileType go setlocal noexpandtab shiftwidth=4 tabstop=4
 " Enable spell checking for certain file types
 autocmd BufRead,BufNewFile *.md,*.txt,*.go setlocal spell
 
+" Disable ALE warning/error text highlight (but keep signs & messages)
+highlight ALEWarning cterm=NONE ctermfg=NONE ctermbg=NONE
+highlight ALEError cterm=NONE ctermfg=NONE ctermbg=NONE
+highlight ALEInfo cterm=NONE ctermfg=NONE ctermbg=NONE
+
 " Recognize additional file types
 autocmd BufRead,BufNewFile *.profile set filetype=sh
 autocmd BufRead,BufNewFile *.crontab set filetype=crontab
 autocmd BufRead,BufNewFile */ssh/config set filetype=sshconfig
 autocmd BufRead,BufNewFile *.gitconfig set filetype=gitconfig
 autocmd BufRead,BufNewFile .dockerignore set filetype=gitignore
-
+autocmd BufRead,BufNewFile */tasks/*.yaml,*/handlers/*.yaml set filetype=yaml.ansible
 " Highlight Pmenu for autocompletion menu
 autocmd FileType * highlight Pmenu ctermbg=234 ctermfg=white
 
@@ -216,4 +231,3 @@ autocmd FileType * highlight Pmenu ctermbg=234 ctermfg=white
 
 " Go-specific mappings
 autocmd FileType go nnoremap <leader>n if err != nil { return err }<CR><Esc>
-

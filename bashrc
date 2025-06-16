@@ -15,7 +15,7 @@ esac
 
 # Set USER if not already set
 export USER="${USER:-$(whoami)}"
-export GITUSER="${GITUSER:-USER}"
+export GITUSER="${GITUSER:-$USER}"
 
 # Define directory paths
 export REPOS="$HOME/repo"
@@ -23,9 +23,11 @@ export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/Dot"
 export DOT="$DOTFILES"
 export SCRIPTS="$DOTFILES/scripts"
+export KUBE_EDITOR=vi
 
 # Terminal settings
 export TERM="${TERM:-xterm-256color}"
+export COLORTERM="truecolor"
 export HRULEWIDTH=73
 
 # Set default editor
@@ -40,6 +42,8 @@ if command -v go &>/dev/null; then
     export PATH="$PATH:$GOBIN"
     export CGO_ENABLED=0
 fi
+
+
 
 # Less options and colors
 export LESS="-FXR"
@@ -110,11 +114,12 @@ pathprepend() {
 
 # Modify PATH
 pathprepend \
+  /.cargo/bin \
   /usr/local/go/bin \
   "$HOME/.local/bin" \
-  "$SCRIPTS"
 
 pathappend \
+  /home/nox/repo/github.com/2maro/Dot/scripts \
   /usr/local/opt/coreutils/libexec/gnubin \
   /usr/share/bcc/tools \
   /usr/local/bin \
@@ -254,7 +259,7 @@ _have() { type "$1" &>/dev/null; }
 #                                  Completions
 # ============================================================================
 
-owncomp=(kind pandoc helm kubectl yq gh ./setup)
+owncomp=(kind pandoc helm kubectl yq gh ./setup flux)
 
 for i in "${owncomp[@]}"; do complete -C "$i" "$i"; done
 
@@ -264,6 +269,11 @@ _have kind && . <(kind completion bash)
 _have pandoc && . <(pandoc --bash-completion)
 _have yq && . <(yq shell-completion bash)
 _have helm && . <(helm completion bash)
+_have flux && . <(flux completion bash)
 
 complete -C '/usr/local/bin/aws_completer' aws
 complete -C '/usr/bin/terraform' terraform
+complete -C '/usr/bin/cargo' cargo
+complete -C '/usr/bin/rustup' rustup
+complete -C '/usr/bin/rustc' rustc
+. "$HOME/.cargo/env"

@@ -78,8 +78,8 @@ set -g message-style fg=red
 # Set clock mode color
 setw -g clock-mode-colour cyan
 
-# Set default terminal to support 256 colors
-set -g default-terminal "screen-256color"
+# Set default terminal to support 25
+set -g default-terminal "tmux-256color"
 
 # Disable automatic window renaming
 set -g automatic-rename off
