@@ -1,242 +1,57 @@
 # shellcheck disable=SC1090,SC1091,SC2155
-#============================================================================
-#                                  Initial Setup
-# ===========================================================================
 
 # Exit if not running interactively
 case "$-" in
     *i*) ;;
-      *) return;;
+    *) return;;
 esac
 
-# ===========================================================================
-#                              Environment Variables
-# ===========================================================================
+# ---------------------- local utility functions ---------------------
 
-# Set USER if not already set
+_have() { type "$1" &>/dev/null; }
+_source_if() { [[ -r "$1" ]] && source "$1"; }
+
+# ----------------------- environment variables ----------------------
+
+export LANG=en_US.UTF-8
 export USER="${USER:-$(whoami)}"
-export GITUSER="${GITUSER:-$USER}"
+export GITUSER="$USER"
+export TZ=America/Chicago
 
-# Define directory paths
-export REPOS="$HOME/repo"
+export REPOS="$HOME/Repos"
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/Dot"
 export DOT="$DOTFILES"
 export SCRIPTS="$DOTFILES/scripts"
-export KUBE_EDITOR=vi
 
-# Terminal settings
-export TERM="${TERM:-xterm-256color}"
-export COLORTERM="truecolor"
-export HRULEWIDTH=73
-
-# Set default editor
-export VISUAL=vi
+export VISUAL=vim
 export EDITOR="$VISUAL"
 export EDITOR_PREFIX="$VISUAL"
+export KUBE_EDITOR="$VISUAL"
 
-# Go environment setup
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+
+export LESS="-FXR"
+export TERM="${TERM:-xterm-256color}"
+export COLORTERM="truecolor"
+export LESS_TERMCAP_md=$'\e[1;33m'
+export LESS_TERMCAP_mb=$'\e[1;35m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[38;5;108;1m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[4m'
+export LESS_TERMCAP_ue=$'\e[0m'
+
+# Go support
 if command -v go &>/dev/null; then
-    export GOPATH="${GOPATH:-$HOME/.local/share/go}"
-    export GOBIN="${GOBIN:-$HOME/.local/bin}"
+    export GOPATH="$HOME/.local/share/go"
+    export GOBIN="$HOME/.local/bin"
     export PATH="$PATH:$GOBIN"
     export CGO_ENABLED=0
 fi
 
-
-
-# Less options and colors
-export LESS="-FXR"
-export LESS_TERMCAP_mb=$'\e[01;35m'    # Blink
-export LESS_TERMCAP_md=$'\e[01;33m'    # Bold
-export LESS_TERMCAP_me=$'\e[0m'        # Reset
-export LESS_TERMCAP_se=$'\e[0m'        # Reset
-export LESS_TERMCAP_so=$'\e[01;34m'    # Standout mode
-export LESS_TERMCAP_ue=$'\e[0m'        # Reset
-export LESS_TERMCAP_us=$'\e[01;04m'    # Underline
-
-# ===========================================================================
-#                                    Pager
-# ===========================================================================
-
-# Use lesspipe for advanced less functionality
-if command -v lesspipe &>/dev/null; then
-    eval "$(SHELL=/bin/sh lesspipe)"
-fi
-
-# ===========================================================================
-#                                   History
-# ===========================================================================
-
-# History settings
-export HISTSIZE=10000
-export HISTFILESIZE=20000
-export HISTORY_IGNORE="(ls|cd|pwd|exit|cd)*"
-
-# ============================================================================
-#                                   Dircolors
-# ============================================================================
-
-# Set up dircolors if available
-if command -v dircolors &>/dev/null; then
-    if [[ -r "$HOME/.local/dircolors" ]]; then
-        eval "$(dircolors -b "$HOME/.local/dircolors")"
-    else
-        eval "$(dircolors -b)"
-    fi
-fi
-
-# ===========================================================================
-#                                     PATH
-# ===========================================================================
-
-pathappend() {
-  local arg
-  for arg in "$@"; do
-    test -d "$arg" || continue
-    PATH=${PATH//":$arg:"/:}
-    PATH=${PATH/#"$arg:"/}
-    PATH=${PATH/%":$arg"/}
-    PATH="${PATH:+"$PATH:"}$arg"
-  done
-}
-
-pathprepend() {
-  local arg
-  for arg in "$@"; do
-    test -d "$arg" || continue
-    PATH=${PATH//":$arg:"/:}
-    PATH=${PATH/#"$arg:"/}
-    PATH=${PATH/%":$arg"/}
-    PATH="$arg${PATH:+":$PATH"}"
-  done
-}
-
-# Modify PATH
-pathprepend \
-  /.cargo/bin \
-  /usr/local/go/bin \
-  "$HOME/.local/bin" \
-
-pathappend \
-  /home/nox/repo/github.com/2maro/Dot/scripts \
-  /usr/local/opt/coreutils/libexec/gnubin \
-  /usr/share/bcc/tools \
-  /usr/local/bin \
-  /usr/local/sbin \
-  /usr/local/games \
-  /usr/games \
-  /usr/sbin \
-  /usr/bin \
-  /snap/bin \
-  /sbin \
-  /bin
-
-
-# Export PATH once after modifications
-export PATH
-
-# ============================================================================
-#                                    CDPATH
-# ============================================================================
-
-# Directories for cd command to search
-export CDPATH=".:$SCRIPTS:$DOT:$REPOS:/media/$USER:$HOME"
-
-# ============================================================================
-#                               Bash Shell Options
-# ============================================================================
-
-# Enable vi mode for command line editing
-set -o vi
-
-# Append to the history file, don't overwrite it
-shopt -s histappend
-
-# Check window size after each command and update LINES and COLUMNS
-shopt -s checkwinsize
-
-# Enable alias expansion
-shopt -s expand_aliases
-
-# Enable recursive globbing (e.g., **/*.txt)
-shopt -s globstar
-
-# Include dotfiles in filename expansion
-shopt -s dotglob
-
-# Enable extended pattern matching features
-shopt -s extglob
-
-# ============================================================================
-#                                 Shell Prompt
-# ============================================================================
-
-# Prompt length settings
-PROMPT_LONG=20
-PROMPT_MAX=95
-PROMPT_AT=@
-
-# Function to construct the PS1 prompt
-__ps1() {
-    local P='$'
-    local dir="${PWD##*/}"
-    local B countme short long double
-    local r='\[\e[31m\]'    # Red
-    local g='\[\e[30m\]'    # Black
-    local h='\[\e[34m\]'    # Blue
-    local u='\[\e[33m\]'    # Yellow
-    local p='\[\e[34m\]'    # Blue
-    local w='\[\e[35m\]'    # Magenta
-    local b='\[\e[36m\]'    # Cyan
-    local x='\[\e[0m\]'     # Reset
-
-    # Adjust prompt for root user
-    if [[ "$EUID" == 0 ]]; then
-        P='#'
-        u=$r
-        p=$u
-    fi
-
-    # Adjust directory display
-    [[ "$PWD" == "/" ]] && dir="/"
-    [[ "$PWD" == "$HOME" ]] && dir='~'
-
-    # Get current Git branch
-    B=$(git branch --show-current 2>/dev/null)
-    [[ "$dir" == "$B" ]] && B='.'
-    countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
-
-    # Highlight master or main branch
-    if [[ "$B" == "master" || "$B" == "main" ]]; then
-        b="$r"
-    fi
-
-    [[ -n "$B" ]] && B="$g($b$B$g)"
-
-    # Construct prompt variations
-    short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x"
-    long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
-    double="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
-
-    # Select prompt based on length
-    if (( ${#countme} > PROMPT_MAX )); then
-        PS1="$double"
-    elif (( ${#countme} > PROMPT_LONG )); then
-        PS1="$long"
-    else
-        PS1="$short"
-    fi
-}
-
-# Set PROMPT_COMMAND to invoke __ps1 before each command
-PROMPT_COMMAND="__ps1"
-
-# ============================================================================
-#                                    Aliases
-# ============================================================================
-
-# Custom aliases
+# ----------------------------- aliases ----------------------------
 alias coin="clip '(yes|no)'"
 alias ls='ls -h --color=auto'
 alias scripts='cd "$SCRIPTS"'
@@ -247,26 +62,132 @@ alias diff='diff --color'
 alias tree='tree -a -C'
 alias temp='cd "$(mktemp -d)"'
 alias vi=vim
+# ----------------------------- dircolors ----------------------------
 
-# ============================================================================
-#                                   Functions
-# ============================================================================
+if _have dircolors; then
+    if [[ -r "$HOME/.local/dircolors" ]]; then
+        eval "$(dircolors -b \"$HOME/.local/dircolors\")"
+    else
+        eval "$(dircolors -b)"
+    fi
+fi
 
-# Check if a command exists
-_have() { type "$1" &>/dev/null; }
+# ------------------------------- path -------------------------------
 
-# ============================================================================
-#                                  Completions
-# ============================================================================
+pathappend() {
+    declare arg
+    for arg in "$@"; do
+        test -d "$arg" || continue
+        PATH=${PATH//":$arg:"/:}
+        PATH=${PATH/#"$arg:"/}
+        PATH=${PATH/%":$arg"/}
+        export PATH="${PATH:+"$PATH:"}$arg"
+    done
+} && export -f pathappend
 
-owncomp=(kind pandoc helm kubectl yq gh ./setup flux)
+pathprepend() {
+    for arg in "$@"; do
+        test -d "$arg" || continue
+        PATH=${PATH//":$arg:"/:}
+        PATH=${PATH/#"$arg:"/}
+        PATH=${PATH/%":$arg"/}
+        export PATH="$arg${PATH:+":$PATH"}"
+    done
+} && export -f pathprepend
 
+pathprepend \
+    "$HOME/.cargo/bin" \
+    "/usr/local/go/bin" \
+    "$HOME/.local/bin" \
+    "$SCRIPTS" \
+    "/opt/homebrew/bin"
+
+pathappend \
+    "/usr/local/opt/coreutils/libexec/gnubin" \
+    "/usr/local/bin" "/usr/bin" "/bin" \
+    "/usr/sbin" "/sbin" \
+    "/usr/local/sbin"
+
+# ------------------------------ cdpath ------------------------------
+
+export CDPATH=".:$SCRIPTS:$DOT:$REPOS:$HOME"
+
+# ------------------------ bash shell options ------------------------
+
+set -o vi
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s expand_aliases
+shopt -s globstar
+shopt -s dotglob
+shopt -s extglob
+stty -ixon
+
+# --------------------------- smart prompt ---------------------------
+
+PROMPT_LONG=20
+PROMPT_MAX=95
+PROMPT_AT="@"
+__ps1() {
+    local dir B countme short long double P
+    local r h u p w b x g  # color codes
+
+    r='\[\033[38;2;255;85;85m\]'      # Bright red (root/error)
+    h='\[\033[38;2;131;165;152m\]'    # Dusty aqua blue (hostname) 
+    u='\[\033[38;2;184;187;38m\]'     # Bright lime green (username - like "nox")
+    p='\[\033[38;2;131;165;152m\]'    # Dusty aqua (prompt symbol)
+    w='\[\033[38;2;215;153;33m\]'     # Orange/amber (working directory)
+    b='\[\033[38;2;131;165;152m\]'    # Dusty aqua (git branch)
+    x='\[\e[0m\]'                     # Reset
+    g='\[\033[38;2;204;204;204m\]'    # Light gray (decorations like @, :, etc)
+
+    [[ $EUID == 0 ]] && P='#' && u=$r && p=$u
+    [[ $PWD = / ]] && dir=/
+    [[ $PWD = "$HOME" ]] && dir='~'
+
+    dir="${PWD##*/}"
+    B=$(git branch --show-current 2>/dev/null)
+    [[ $dir = "$B" ]] && B=.
+    countme="$USER$PROMPT_AT$(hostname):${dir}[$B]\$ "
+
+    [[ $B == master || $B == main ]] && b="$r"
+    [[ -n "$B" ]] && B="$g($b$B$g)"
+
+    short="$u\\u$g$PROMPT_AT$h\\h$g:$w$dir$B$p$P$x "
+    long="${g}╔$u\\u$g$PROMPT_AT$h\\h$g:$w$dir$B\n${g}╚$p$P$x "
+    double="${g}╔$u\\u$g$PROMPT_AT$h\\h$g:$w$dir\n${g}║$B\n${g}╚$p$P$x "
+
+    if (( ${#countme} > PROMPT_MAX )); then
+        PS1="$double"
+    elif (( ${#countme} > PROMPT_LONG )); then
+        PS1="$long"
+    else
+        PS1="$short"
+    fi
+
+    if _have tmux && [[ -n "$TMUX" ]]; then
+        tmux rename-window "$(basename "$PWD")"
+    fi
+}
+
+# ------------------------ os awareness ------------------------------
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    brew_prefix="$(brew --prefix)"
+    if [[ -r "$brew_prefix/etc/profile.d/bash_completion.sh" ]]; then
+        source "$brew_prefix/etc/profile.d/bash_completion.sh"
+    fi
+    export BROWSER=open
+fi
+
+# --------------------------- completions ----------------------------
+
+owncomp=(kind helm kubectl yq gh ./setup flux)
 for i in "${owncomp[@]}"; do complete -C "$i" "$i"; done
 
 _have kubectl && . <(kubectl completion bash)
 _have gh && . <(gh completion -s bash)
 _have kind && . <(kind completion bash)
-_have pandoc && . <(pandoc --bash-completion)
 _have yq && . <(yq shell-completion bash)
 _have helm && . <(helm completion bash)
 _have flux && . <(flux completion bash)

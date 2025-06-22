@@ -1,4 +1,22 @@
 # ==============================================================================
+#                               Terminal and Color Settings
+# ==============================================================================
+
+# Set the default terminal to support 256 colors and truecolor
+set -g default-terminal "tmux-256color"
+
+# Enable true color (24-bit) support - this is crucial for your vim colors
+set-option -sa terminal-overrides ',xterm-256color:RGB'
+set-option -sa terminal-overrides ',xterm-256color:Tc'
+
+# Additional terminal features for modern terminals
+set-option -sa terminal-features ',xterm-256color:RGB'
+
+# Enable italics support (you already have this working)
+set-option -sa terminal-overrides ',xterm*:sitm=\E[3m,ritm=\E[23m'
+set -as terminal-features ",xterm-256color:italics"
+
+# ==============================================================================
 #                               Prefix and Key Bindings
 # ==============================================================================
 
@@ -14,8 +32,7 @@ bind-key -n C-y send-prefix
 bind-key C-a last-window
 
 # Reload tmux configuration
-bind r source-file ~/.tmux.conf \; display-message "Tmux config
- reloaded"
+bind r source-file ~/.tmux.conf \; display-message "Tmux config reloaded"
 
 # Split pane shortcuts (similar to modern screen)
 unbind |
@@ -24,7 +41,6 @@ bind | split-window -h
 bind '\' split-window -h
 bind 'C-\' split-window -h
 
-unbind -
 unbind '_'
 bind - split-window -v
 bind '_' split-window -v
@@ -55,7 +71,7 @@ set -g status-keys vi
 set -g focus-events off
 
 # Set Mouse off on tmux
-set -g mouse off 
+set -g mouse off
 
 # ==============================================================================
 #                                  Appearance
@@ -67,7 +83,6 @@ set -g pane-active-border-style fg=#171717
 
 # Status bar style
 set -g status-style fg=#665c54,bg=default
-#set -g status-position top
 set -g status-interval 5
 set -g status-left ''
 set -g status-right "#[fg=gold]%b/%d/%y %I:%M%p"
@@ -78,9 +93,6 @@ set -g message-style fg=red
 # Set clock mode color
 setw -g clock-mode-colour cyan
 
-# Set default terminal to support 25
-set -g default-terminal "tmux-256color"
-
 # Disable automatic window renaming
 set -g automatic-rename off
 
@@ -88,9 +100,9 @@ set -g automatic-rename off
 set -g base-index 1
 setw -g pane-base-index 1
 
-# ===========================================================================
+# ==============================================================================
 #                               Performance Tweaks
-# ===========================================================================
+# ==============================================================================
 
 # Reduce delay when entering copy mode or switching panes
 set -s escape-time 10
@@ -98,9 +110,10 @@ set -s escape-time 10
 # Adjust repeat time for key bindings
 set -g repeat-time 100
 
-# ============================================================================
+# ==============================================================================
 #                                  Miscellaneous
-# ============================================================================
+# ==============================================================================
 
 # Set history file
 set -g history-file ~/.tmux_history
+

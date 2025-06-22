@@ -1,323 +1,319 @@
 # Terminal Definitions
 COLOR tty
 
-# Terminal Types
+# Terminal Types - Add 256color variants
 TERM ansi
 TERM color_xterm
 TERM color-xterm
 TERM console
-TERM cons25
 TERM cygwin
-TERM dtterm
-TERM Eterm
-TERM eterm-color
-TERM fbterm
 TERM gnome
 TERM gnome-256color
-TERM jfbterm
-TERM konsole
 TERM konsole-256color
-TERM kterm
 TERM linux
-TERM linux-c
-TERM mach-color
-TERM mlterm
-TERM nxterm
-TERM putty
 TERM putty-256color
-TERM rxvt
 TERM rxvt-256color
-TERM rxvt-cygwin
-TERM rxvt-cygwin-native
-TERM rxvt-unicode
 TERM rxvt-unicode-256color
-TERM rxvt-unicode256
-TERM screen
-TERM screen-16color
-TERM screen-16color-bce
-TERM screen-16color-bce-s
-TERM screen-16color-s
 TERM screen-256color
-TERM screen-256color-bce
-TERM screen-256color-bce-s
-TERM screen-256color-s
-TERM screen-bce
-TERM screen-w
-TERM screen.linux
-TERM screen.xterm-new
-TERM st
 TERM st-256color
-TERM st-meta
-TERM st-meta-256color
-TERM vt100
+TERM tmux-256color
 TERM xterm
 TERM xterm-16color
 TERM xterm-256color
 TERM xterm-88color
 TERM xterm-color
-TERM xterm-debian
-TERM xterm-new
-TERM xterm-termite
 
-# General File Types
+# ==============================================================================
+#                           Core File Types (256-Color)
+# ==============================================================================
+# Using 256-color codes for exact hex matches:
+# #83a598 = 109 (dusty aqua blue)
+# #b8bb26 = 142 (gruvbox lime green)  
+# #D68C8C = 174 (soft pink)
+# #d79921 = 172 (muted orange/amber)
+
+# Basic file attributes
 EIGHTBIT 1
-NORMAL 00
-FILE 00
-DIR 34             # Directories (Blue)
-OTHER_WRITABLE 34;40  # Other writable directories (Blue on Black)
-LINK 35            # Symbolic links (Magenta)
-FIFO 30;44         # Named pipes (Black on Blue)
-SOCK 35;44         # Sockets (Magenta on Blue)
-DOOR 35;44         # Doors (Solaris 2.5 and later) (Magenta on Blue)
-BLK 33;44          # Block devices (Yellow on Blue)
-CHR 37;44          # Character devices (White on Blue)
-ORPHAN 05;37;41    # Orphaned symbolic links (Blinking White on Red)
-MISSING 05;37;41   # Missing files (Blinking White on Red)
+NORMAL 00                   # Default text color (same as vim Normal)
+FILE 00                     # Regular files - same as vim Normal text
+RESET 0                     # Reset to normal color
 
-# Executable Files (Red)
-EXEC 31
-.cmd 31            # Windows command files
-.exe 31            # Windows executables
-.com 31            # Windows command files
-.bat 31            # Windows batch files
-.reg 31            # Windows registry files
-.app 31            # macOS applications
-.sh 31             # Shell scripts
-.bash 31           # Bash scripts
-.csh 31            # C shell scripts
-.zsh 31            # Z shell scripts
+# Make all hidden files the same color as normal files
+.* 00                       # All hidden files - same as normal text
 
-# Configuration and Data Files
-# YAML and JSON files (Cyan)
-.yaml 36
-.yml 36
-.json 36
-.toml 36 
+# Directory colors - #83a598 (Dusty aqua blue) = 109
+DIR 38;5;109                # Directories (256-color dusty aqua)
+OTHER_WRITABLE 38;5;109;40  # Other writable directories
+STICKY 38;5;109;44          # Sticky directories
+STICKY_OTHER_WRITABLE 38;5;109;44
 
-# Terraform files (Magenta)
-.tf 35
+# Link colors - using the same dusty aqua as directories
+LINK 38;5;109               # Symbolic links (256-color dusty aqua)
+ORPHAN 05;37;41             # Orphaned symbolic links (blinking white on red)
+MISSING 05;37;41            # Missing files
 
-# Source Code and Text Files (Green)
-.c 32
-.C 32
-.cc 32
-.cpp 32
-.cxx 32
-.el 32
-.h 32
-.haml 32
-.hs 32
-.html 32
-.htm 32
-.java 32
-.js 32
-.less 32
-.l 32
-.man 32
-.md 32
-.mkd 32
-.n 32
-.objc 32
-.org 32
-.p 32
-.php 32
-.pl 32
-.pm 32
-.pod 32
-.py 32
-.rb 32
-.rdf 32
-.sass 32
-.scss 32
-.sh 32
-.tex 32
-.txt 32
-.vim 32
-.xml 32
-.zsh 32
+# Special file types
+FIFO 30;44                  # Named pipes (black on blue)
+SOCK 38;5;174;44            # Sockets (soft pink on blue)
+DOOR 38;5;174;44            # Doors (soft pink on blue)
+BLK 38;5;172;44             # Block devices (amber on blue)
+CHR 37;44                   # Character devices (white on blue)
 
-# Manual Pages (Green)
-.0 32
-.1 32
-.2 32
-.3 32
-.4 32
-.5 32
-.6 32
-.7 32
-.8 32
-.9 32
+# Executable files - #D68C8C (Custom soft pink) = 174
+EXEC 38;5;174               # Executable files (256-color soft pink)
 
-# Web Files (Green)
-.coffee 32
-.css 32
-.erb 32
-.html 32
-.js 32
-.less 32
-.sass 32
-.scss 32
-.shtml 32
+# ==============================================================================
+#                              Executable Scripts
+# ==============================================================================
+# #D68C8C (Custom soft pink) = 174
+.cmd 38;5;174               # Windows command files
+.exe 38;5;174               # Windows executables  
+.com 38;5;174               # Windows command files
+.bat 38;5;174               # Windows batch files
+.reg 38;5;174               # Windows registry files
+.app 38;5;174               # macOS applications
+.sh 38;5;174                # Shell scripts
+.bash 38;5;174              # Bash scripts
+.csh 38;5;174               # C shell scripts
+.zsh 38;5;174               # Z shell scripts
+.fish 38;5;174              # Fish shell scripts
 
-# Multimedia Formats
-## Images (Yellow)
-.bmp 33
-.cgm 33
-.dl 33
-.dvi 33
-.emf 33
-.eps 33
-.gif 33
-.jpeg 33
-.jpg 33
-.JPG 33
-.mng 33
-.pbm 33
-.pcx 33
-.pdf 33
-.pgm 33
-.png 33
-.ppm 33
-.pps 33
-.ppsx 33
-.ps 33
-.svg 33
-.svgz 33
-.tga 33
-.tif 33
-.tiff 33
-.xbm 33
-.xcf 33
-.xpm 33
-.xwd 33
-.yuv 33
+# ==============================================================================
+#                        Configuration Files (Dusty Aqua)
+# ==============================================================================
+# #83a598 (Dusty aqua) = 109
+.yaml 38;5;109
+.yml 38;5;109
+.json 38;5;109
+.toml 38;5;109
+.ini 38;5;109
+.conf 38;5;109
+.config 38;5;109
+.cfg 38;5;109
 
-## Audio (Yellow)
-.aac 33
-.au 33
-.flac 33
-.mid 33
-.midi 33
-.mka 33
-.mp3 33
-.mpa 33
-.ogg 33
-.ra 33
-.wav 33
+# Infrastructure as Code
+.tf 38;5;109                # Terraform files
+.tfvars 38;5;109            # Terraform variables
+.dockerfile 38;5;109        # Dockerfiles
+.Dockerfile 38;5;109
 
-## Video (Yellow)
-.anx 33
-.asf 33
-.avi 33
-.axv 33
-.flc 33
-.fli 33
-.flv 33
-.gl 33
-.m2v 33
-.m4v 33
-.mkv 33
-.mov 33
-.mp4 33
-.mp4v 33
-.mpeg 33
-.mpg 33
-.nuv 33
-.ogm 33
-.ogv 33
-.ogx 33
-.qt 33
-.rm 33
-.rmvb 33
-.swf 33
-.vob 33
-.wmv 33
+# ==============================================================================
+#                     Source Code Files (Gruvbox Lime Green)
+# ==============================================================================
+# #b8bb26 (Gruvbox lime green) = 142
+.c 38;5;142
+.C 38;5;142
+.cc 38;5;142
+.cpp 38;5;142
+.cxx 38;5;142
+.c++ 38;5;142
+.h 38;5;142
+.hpp 38;5;142
+.hxx 38;5;142
+.h++ 38;5;142
+.go 38;5;142
+.rs 38;5;142                # Rust
+.py 38;5;142                # Python
+.rb 38;5;142                # Ruby
+.php 38;5;142               # PHP
+.js 38;5;142                # JavaScript
+.ts 38;5;142                # TypeScript
+.jsx 38;5;142               # React
+.tsx 38;5;142               # TypeScript React
+.java 38;5;142              # Java
+.scala 38;5;142             # Scala
+.kt 38;5;142                # Kotlin
+.swift 38;5;142             # Swift
+.dart 38;5;142              # Dart
+.hs 38;5;142                # Haskell
+.ml 38;5;142                # OCaml
+.fs 38;5;142                # F#
+.clj 38;5;142               # Clojure
+.el 38;5;142                # Emacs Lisp
+.lisp 38;5;142              # Common Lisp
+.pl 38;5;142                # Perl
+.pm 38;5;142                # Perl modules
+.vim 38;5;142               # Vim scripts
+.lua 38;5;142               # Lua
+.tcl 38;5;142               # Tcl
 
-# Binary Documents and Multimedia Source Files (Red)
-.dot 31            # Word templates
-.dotx 31
-.doc 31            # Microsoft Word documents
-.docx 31
-.fla 31            # Adobe Flash files
-.ppt 31            # PowerPoint presentations
-.pptx 31
-.psd 31            # Adobe Photoshop files
-.rtf 31            # Rich Text Format files
-.xls 31            # Excel spreadsheets
-.xlsx 31
+# Web development files
+.html 38;5;142
+.htm 38;5;142
+.xhtml 38;5;142
+.css 38;5;142
+.scss 38;5;142
+.sass 38;5;142
+.less 38;5;142
+.xml 38;5;142
+.xsl 38;5;142
+.xsd 38;5;142
 
-# Archives and Compressed Files (Bright Magenta)
-.7z 1;35
-.apk 1;35
-.arj 1;35
-.bin 1;35
-.bz 1;35
-.bz2 1;35
-.cab 1;35
-.deb 1;35
-.dmg 1;35
-.gem 1;35
-.gz 1;35
-.iso 1;35
-.jar 1;35
-.msi 1;35
-.rar 1;35
-.rpm 1;35
-.tar 1;35
-.tbz 1;35
-.tbz2 1;35
-.tgz 1;35
-.txz 1;35       # Corrected from .tx to .txz
-.war 1;35
-.xpi 1;35
-.xz 1;35
-.z 1;35
-.Z 1;35
-.zip 1;35
+# Data and markup files
+.sql 38;5;142
+.graphql 38;5;142
+.gql 38;5;142
+.md 38;5;142                # Markdown
+.markdown 38;5;142
+.rst 38;5;142               # reStructuredText
+.tex 38;5;142               # LaTeX
+.org 38;5;142               # Org mode
 
-# ANSI Color Tests
-.ANSI-30-black 30                   # Black
-.ANSI-01;30-brblack 01;30    [I       # Bright black (gray)
-.ANSI-31-red 31                     # Red
-.ANSI-01;31-brred 01;31             # Bright red
-.ANSI-32-green 32                   # Green
-.ANSI-01;32-brgreen 01;32           # Bright green
-.ANSI-33-yellow 33                  # Yellow
-.ANSI-01;33-bryellow 01;33          # Bright yellow
-.ANSI-34-blue 34                    # Blue
-.ANSI-01;34-brblue 01;34            # Bright blue
-.ANSI-35-magenta 35                 # Magenta
-.ANSI-01;35-brmagenta 01;35         # Bright magenta
-.ANSI-36-cyan 36                    # Cyan
-.ANSI-01;36-brcyan 01;36            # Bright cyan
-.ANSI-37-white 37                   # White
-.ANSI-01;37-brwhite 01;37           # Bright white
+# ==============================================================================
+#                        Multimedia Files (Muted Orange/Amber)
+# ==============================================================================
+# #d79921 (Muted orange/amber) = 172
 
-# Logs and Temporary Files (Bright Green)
-.log 01;32         # Log files
-*~ 01;32           # Backup files ending with '~'
-*# 01;32           # Temporary files ending with '#'
+# Image files
+.jpg 38;5;172
+.jpeg 38;5;172
+.JPG 38;5;172
+.JPEG 38;5;172
+.png 38;5;172
+.PNG 38;5;172
+.gif 38;5;172
+.GIF 38;5;172
+.bmp 38;5;172
+.BMP 38;5;172
+.svg 38;5;172
+.SVG 38;5;172
+.tiff 38;5;172
+.tif 38;5;172
+.webp 38;5;172
+.ico 38;5;172
+.icon 38;5;172
 
-# Backup and Old Files (Bright Yellow)
-.bak 01;33
-.BAK 01;33
-.dist 01;33
-.DIST 01;33
-.off 01;33
-.OFF 01;33
-.old 01;33
-.OLD 01;33
-.orig 01;33
-.ORIG 01;33
-.org_archive 01;33
-.swp 01;33
-.swo 01;33
-*,v 01;33
+# Vector graphics
+.eps 38;5;172
+.ps 38;5;172
+.pdf 38;5;172
 
-# Encrypted Files (Blue)
-.3des 34
-.aes 34
-.asc 34
-.enc 34
-.gpg 34
-.pgp 34
+# Audio files
+.mp3 38;5;172
+.flac 38;5;172
+.ogg 38;5;172
+.wav 38;5;172
+.aac 38;5;172
+.m4a 38;5;172
+.wma 38;5;172
+.opus 38;5;172
+
+# Video files  
+.mp4 38;5;172
+.mkv 38;5;172
+.avi 38;5;172
+.mov 38;5;172
+.wmv 38;5;172
+.flv 38;5;172
+.webm 38;5;172
+.m4v 38;5;172
+.3gp 38;5;172
+.ogv 38;5;172
+
+# ==============================================================================
+#                        Binary Documents (Custom Soft Pink)
+# ==============================================================================
+# #D68C8C (Custom soft pink) = 174
+.doc 38;5;174
+.docx 38;5;174
+.odt 38;5;174
+.rtf 38;5;174
+.xls 38;5;174
+.xlsx 38;5;174
+.ods 38;5;174
+.ppt 38;5;174
+.pptx 38;5;174
+.odp 38;5;174
+
+# Design files
+.psd 38;5;174               # Photoshop
+.ai 38;5;174                # Illustrator
+.sketch 38;5;174            # Sketch
+.fig 38;5;174               # Figma
+
+# ==============================================================================
+#                     Archives and Packages (Muted Orange/Amber) 
+# ==============================================================================
+# #d79921 (Muted orange/amber) = 172
+.tar 38;5;172
+.tgz 38;5;172
+.tar.gz 38;5;172
+.tar.bz2 38;5;172
+.tar.xz 38;5;172
+.zip 38;5;172
+.ZIP 38;5;172
+.rar 38;5;172
+.RAR 38;5;172
+.7z 38;5;172
+.gz 38;5;172
+.bz2 38;5;172
+.xz 38;5;172
+.lz 38;5;172
+.lzma 38;5;172
+
+# Package files
+.deb 38;5;172
+.rpm 38;5;172
+.pkg 38;5;172
+.dmg 38;5;172
+.iso 38;5;172
+.jar 38;5;172
+.war 38;5;172
+.apk 38;5;172
+
+# ==============================================================================
+#                      Backup and Temporary Files (Dim)
+# ==============================================================================
+# Using dim versions for less important files
+*~ 02;38;5;172              # Backup files (dim amber)
+*# 02;38;5;172              # Temp files (dim amber)
+.tmp 02;38;5;172
+.temp 02;38;5;172
+.bak 02;38;5;172
+.BAK 02;38;5;172
+.old 02;38;5;172
+.OLD 02;38;5;172
+.orig 02;38;5;172
+.ORIG 02;38;5;172
+.swp 02;38;5;172            # Vim swap files
+.swo 02;38;5;172            # Vim swap files
+*,v 02;38;5;172             # Version control
+
+# Log files
+.log 38;5;142
+.LOG 38;5;142
+
+# ==============================================================================
+#                         Security and Encryption Files
+# ==============================================================================
+# Using dusty aqua for security files
+.gpg 38;5;109
+.pgp 38;5;109
+.asc 38;5;109               # ASCII armored
+.sig 38;5;109               # Signatures
+.p7s 38;5;109               # PKCS#7 signature
+.pem 38;5;109               # Privacy-enhanced mail
+.crt 38;5;109               # Certificate
+.cer 38;5;109               # Certificate
+.key 38;5;109               # Private key
+.pub 38;5;109               # Public key
+
+# ==============================================================================
+#                              Git and VCS Files
+# ==============================================================================
+# #83a598 (Dusty aqua) = 109
+.gitignore 38;5;109
+.gitmodules 38;5;109
+.gitattributes 38;5;109
+.hgignore 38;5;109
+.svnignore 38;5;109
+
+# ==============================================================================
+#                                 Test Files
+# ==============================================================================
+# Using dusty aqua for test files
+*test* 38;5;109
+*Test* 38;5;109
+*TEST* 38;5;109
+*spec* 38;5;109
+*Spec* 38;5;109
