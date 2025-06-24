@@ -92,7 +92,9 @@ function! s:Campbell() abort
   hi Directory     guifg=#b8bb26 ctermfg=142
   hi SpecialKey    guifg=#d79921 ctermfg=172
   hi NonText       guifg=#504945 ctermfg=239
-
+  hi Error         guibg=#000000 guifg=#000000 ctermbg=16 ctermfg=16
+  hi SpellBad      guibg=#000000 guifg=#000000 ctermbg=16 ctermfg=16
+  hi Visual        guibg=#504945 guifg=NONE ctermbg=239 ctermfg=NONE 
   " Diff/Git
   hi DiffAdd       guifg=#b8bb26 guibg=NONE ctermfg=142 ctermbg=NONE
   hi DiffDelete    guifg=#fb4934 guibg=NONE ctermfg=167 ctermbg=NONE
@@ -101,10 +103,10 @@ function! s:Campbell() abort
   " Linting (ALE)
   hi! link ALEInfoSign Comment
   hi! link ALEHintSign Comment
-  hi ALEError       guibg=NONE guifg=NONE gui=NONE ctermbg=NONE ctermfg=NONE cterm=NONE
-  hi ALEWarning     guibg=NONE guifg=NONE gui=NONE ctermbg=NONE ctermfg=NONE cterm=NONE
-  hi ALEInfo        guibg=NONE guifg=NONE gui=NONE ctermbg=NONE ctermfg=NONE cterm=NONE
-  hi ALEHint        guibg=NONE guifg=NONE gui=NONE ctermbg=NONE ctermfg=NONE cterm=NONE
+  hi ALEErrorSign   guifg=#ff5555 guibg=#000000 ctermfg=203 ctermbg=16
+  hi ALEWarningSign guifg=#ffaa00 guibg=#000000 ctermfg=214 ctermbg=16
+  hi ALEInfoSign    guifg=#83a598 guibg=#000000 ctermfg=109 ctermbg=16
+  hi ALEHintSign    guifg=#b8bb26 guibg=#000000 ctermfg=142 ctermbg=16
 endfunction
 
 call s:Campbell()
@@ -121,6 +123,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'machakann/vim-sandwich'
   Plug 'tpope/vim-fugitive'
   Plug 'dense-analysis/ale'
+
 call plug#end()
 
 " ==============================================================================
@@ -177,7 +180,6 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_format_strings = 1
 let g:go_auto_sameids             = 0
 let g:go_version_warning          = 0
-
 " ==============================================================================
 "                                Key Mappings
 " ==============================================================================

@@ -34,7 +34,7 @@ TERM xterm-color
 
 # Basic file attributes
 EIGHTBIT 1
-NORMAL 00                   # Default text color (same as vim Normal)
+NORMAL 38;5;223                   # Default text color (same as vim Normal)
 FILE 00                     # Regular files - same as vim Normal text
 RESET 0                     # Reset to normal color
 

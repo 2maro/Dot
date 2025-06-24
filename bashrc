@@ -32,7 +32,7 @@ export KUBE_EDITOR="$VISUAL"
 export HISTSIZE=10000
 export HISTFILESIZE=20000
 
-export LESS="-FXR"
+export LESS="-FXR -RAW-CONTROL-CHARS"
 export TERM="${TERM:-xterm-256color}"
 export COLORTERM="truecolor"
 export LESS_TERMCAP_md=$'\e[1;33m'
@@ -170,6 +170,7 @@ __ps1() {
     fi
 }
 
+PROMPT_COMMAND="__ps1"
 # ------------------------ os awareness ------------------------------
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
