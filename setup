@@ -2,13 +2,25 @@
 
 set -e
 
-ln -sf "$PWD/bashrc"  "$HOME/.bashrc"
-ln -sf "$PWD/dircolors"  "$HOME/.dircolors"
-ln -sf "$PWD/vimrc" "$HOME/.vimrc"
+if [[ -z $(command -v vim) ]]; then 
+  echo " Warnging: you dont have vim."
+fi
+
+
+#-----Link base Dotfiles ----
+ln -sf "$PWD/bashrc" "$HOME/.bashrc"
+ln -sf "$PWD/dircolors" "$HOME/.dircolors"
 ln -sf "$PWD/tmux" "$HOME/.tmux.conf"
 ln -sf "$PWD/profile" "$HOME/.profile"
 
-for i in vim git gh tmux podman iam; do
-    cd $i && ./setup
-    cd -
-done
+
+mkdir -p "$HOME/.vim/autoload"
+ln -sf "$PWD/vim/vimrc" "$HOME/.vimrc"
+ln -sf "$PWD/vim/plug.vim" "$HOME/.vim/autoload/plug.vim"
+
+mkdir -p "$HOME/.config/nvim"
+ln -sf "$PWD/vim/init.lua" "$HOME/.config/nvim/init.lua"
+
+
+echo "✅ Dotfiles setup complete!"
+
