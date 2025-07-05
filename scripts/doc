@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: doc module_name"
+    exit 1
+fi
+ansibe-doc "$1" | less -p "EXAMPLES"
+

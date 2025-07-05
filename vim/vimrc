@@ -1,0 +1,166 @@
+" ==============================================================================
+"                              Plugin Management
+" ==============================================================================
+call plug#begin('~/.vim/plugged')
+
+" General plugins
+Plug 'conradirwin/vim-bracketed-paste'
+Plug 'fatih/vim-go',          { 'do': ':GoUpdateBinaries' }
+Plug 'hashivim/vim-terraform'
+Plug 'machakann/vim-sandwich'
+Plug 'tpope/vim-fugitive'
+Plug 'dense-analysis/ale'
+Plug 'sainnhe/gruvbox-material'
+
+" Neovim-specific plugins
+if has('nvim-0.8')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'saadparwaiz1/cmp_luasnip'
+endif
+
+call plug#end()
+
+" ==============================================================================
+"                            Theme: Gruvbox Material
+" ==============================================================================
+set background=dark
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_foreground = 'material'
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_enable_bold = 1
+colorscheme gruvbox-material
+autocmd ColorScheme * highlight Normal guibg=#000000
+" ==============================================================================
+"                           Basic Vim Settings
+" ==============================================================================
+syntax enable
+filetype plugin indent on
+
+if has('termguicolors') | set termguicolors | endif
+
+if exists('$TMUX')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+set background=dark
+set smartindent
+set smarttab
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set signcolumn=yes
+set hidden
+set wrap
+set linebreak
+set wildmenu
+set noshowcmd
+set nolazyredraw
+set nowritebackup
+set nobackup
+set noswapfile
+set history=100
+set mouse=
+set showmode
+set shortmess=aoOtTI
+set number
+set relativenumber
+set scrolloff=8
+" Undodir for both Vim and Neovim
+let s:undo_dir = expand('~/.local/share/undo')
+if !isdirectory(s:undo_dir)
+  call mkdir(s:undo_dir, 'p')
+endif
+set undofile
+execute 'set undodir=' . s:undo_dir
+
+" Ruler format unified
+set ruf=%30(%=%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
+
+" ==============================================================================
+"                                ALE Config (With Emojis)
+" ==============================================================================
+let g:ale_sign_error   = '☠'
+let g:ale_sign_warning = '⚠'
+let g:ale_sign_info    = '🧠'
+let g:ale_sign_hint    = '🤔'
+
+let g:ale_linters = {
+  \ 'go':        ['golangci-lint', 'gofmt', 'gobuild'],
+  \ 'terraform': ['tflint'],
+  \ 'sh':        ['shellcheck'],
+  \ 'bash':      ['shellcheck'],
+  \ 'yaml':      ['ansible_lint', 'yamllint'],
+  \ 'dockerfile':['hadolint'],
+\}
+
+let g:ale_fixers = {
+  \ 'go':        ['gofmt', 'goimports'],
+  \ 'terraform': ['terraform'],
+  \ 'sh':        ['shfmt'],
+  \ 'bash':      ['shfmt'],
+  \ 'yaml':      ['prettier'],
+\}
+
+let g:ale_set_quickfix         = 1
+let g:ale_set_signs            = 1
+let g:ale_linter_aliases       = {'bash': 'sh'}
+let g:ale_fix_on_save          = 1
+let g:ale_virtualtext_cursor   = 'current'
+let g:ale_completion_enabled   = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_enter        = 1
+let g:ale_yaml_yamllint_options = '--disable-rule=line-length'
+let g:ale_yaml_ansible_lint_options = '--skip-list var-naming[no-role-prefix]'
+let g:ale_use_neovim_diagnostics_api = v:false
+let g:ale_echo_cursor = 0
+" ==============================================================================
+"                                Go Extras
+" ==============================================================================
+let g:go_fmt_command              = 'goimports'
+let g:go_fmt_autosave             = 1
+let g:go_gopls_enabled            = 1
+let g:go_def_mapping_enabled      = 0
+let g:go_auto_type_info           = 1
+let g:go_highlight_types          = 1
+let g:go_highlight_fields         = 1
+let g:go_highlight_functions      = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators      = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_format_strings = 1
+let g:go_auto_sameids             = 0
+let g:go_version_warning          = 0
+
+" ==============================================================================
+"                                Key Mappings
+" ==============================================================================
+nnoremap <C-L> :nohlsearch<CR><C-L>
+autocmd FileType go nnoremap <leader>n if err != nil { return err }<CR><Esc>
+
+" ==============================================================================
+"                             Autocmds and Filetypes
+" ==============================================================================
+autocmd BufNewFile,BufRead *.vimrc,.vimrc,init.vim             set ft=vim
+autocmd BufNewFile,BufRead .bashrc,.bash_profile,*.profile     set ft=sh
+autocmd BufNewFile,BufRead *.go                                set ft=go
+autocmd BufNewFile,BufRead *.crontab                           set ft=crontab
+autocmd BufNewFile,BufRead */ssh/config                        set ft=sshconfig
+autocmd BufNewFile,BufRead *.gitconfig                         set ft=gitconfig
+autocmd BufNewFile,BufRead .dockerignore                       set ft=gitignore
+autocmd BufNewFile,BufRead */tasks/*.yaml,*/handlers/*.yaml    set ft=yaml.ansible
+
+if !has('nvim')
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+endif
+

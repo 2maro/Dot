@@ -1,0 +1,160 @@
+TEST(1)                                                                              User Commands                                                                              TEST(1)
+
+[1mNAME[0m
+       test - check file types and compare values
+
+[1mSYNOPSIS[0m
+       [1mtest [4m[22mEXPRESSION[0m
+       [1mtest[0m
+       [1m[ [4m[22mEXPRESSION[24m [1m][0m
+       [1m[ ][0m
+       [1m[ [4m[22mOPTION[0m
+
+[1mDESCRIPTION[0m
+       Exit with the status determined by EXPRESSION.
+
+       [1m--help [22mdisplay this help and exit
+
+       [1m--version[0m
+              output version information and exit
+
+       An omitted EXPRESSION defaults to false.  Otherwise, EXPRESSION is true or false and sets exit status.  It is one of:
+
+       ( EXPRESSION )
+              EXPRESSION is true
+
+       ! EXPRESSION
+              EXPRESSION is false
+
+       EXPRESSION1 [1m-a [22mEXPRESSION2
+              both EXPRESSION1 and EXPRESSION2 are true
+
+       EXPRESSION1 [1m-o [22mEXPRESSION2
+              either EXPRESSION1 or EXPRESSION2 is true
+
+       [1m-n [22mSTRING
+              the length of STRING is nonzero
+
+       STRING equivalent to [1m-n [22mSTRING
+
+       [1m-z [22mSTRING
+              the length of STRING is zero
+
+       STRING1 = STRING2
+              the strings are equal
+
+       STRING1 != STRING2
+              the strings are not equal
+
+       INTEGER1 [1m-eq [22mINTEGER2
+              INTEGER1 is equal to INTEGER2
+
+       INTEGER1 [1m-ge [22mINTEGER2
+              INTEGER1 is greater than or equal to INTEGER2
+
+       INTEGER1 [1m-gt [22mINTEGER2
+              INTEGER1 is greater than INTEGER2
+
+       INTEGER1 [1m-le [22mINTEGER2
+              INTEGER1 is less than or equal to INTEGER2
+
+       INTEGER1 [1m-lt [22mINTEGER2
+              INTEGER1 is less than INTEGER2
+
+       INTEGER1 [1m-ne [22mINTEGER2
+              INTEGER1 is not equal to INTEGER2
+
+       FILE1 [1m-ef [22mFILE2
+              FILE1 and FILE2 have the same device and inode numbers
+
+       FILE1 [1m-nt [22mFILE2
+              FILE1 is newer (modification date) than FILE2
+
+       FILE1 [1m-ot [22mFILE2
+              FILE1 is older than FILE2
+
+       [1m-b [22mFILE
+              FILE exists and is block special
+
+       [1m-c [22mFILE
+              FILE exists and is character special
+
+       [1m-d [22mFILE
+              FILE exists and is a directory
+
+       [1m-e [22mFILE
+              FILE exists
+
+       [1m-f [22mFILE
+              FILE exists and is a regular file
+
+       [1m-g [22mFILE
+              FILE exists and is set-group-ID
+
+       [1m-G [22mFILE
+              FILE exists and is owned by the effective group ID
+
+       [1m-h [22mFILE
+              FILE exists and is a symbolic link (same as [1m-L[22m)
+
+       [1m-k [22mFILE
+              FILE exists and has its sticky bit set
+
+       [1m-L [22mFILE
+              FILE exists and is a symbolic link (same as [1m-h[22m)
+
+       [1m-N [22mFILE
+              FILE exists and has been modified since it was last read
+
+       [1m-O [22mFILE
+              FILE exists and is owned by the effective user ID
+
+       [1m-p [22mFILE
+              FILE exists and is a named pipe
+
+       [1m-r [22mFILE
+              FILE exists and read permission is granted
+
+       [1m-s [22mFILE
+              FILE exists and has a size greater than zero
+
+       [1m-S [22mFILE
+              FILE exists and is a socket
+
+       [1m-t [22mFD  file descriptor FD is opened on a terminal
+
+       [1m-u [22mFILE
+              FILE exists and its set-user-ID bit is set
+
+       [1m-w [22mFILE
+              FILE exists and write permission is granted
+
+       [1m-x [22mFILE
+              FILE exists and execute (or search) permission is granted
+
+       Except  for [1m-h [22mand [1m-L[22m, all FILE-related tests dereference symbolic links.  Beware that parentheses need to be escaped (e.g., by backslashes) for shells.  INTEGER may also be [1m-l[0m
+       STRING, which evaluates to the length of STRING.
+
+       NOTE: Binary [1m-a [22mand [1m-o [22mare inherently ambiguous.  Use 'test EXPR1 && test EXPR2' or 'test EXPR1 || test EXPR2' instead.
+
+       NOTE: [ honors the [1m--help [22mand [1m--version [22moptions, but test does not.  test treats each of those as it treats any other nonempty STRING.
+
+       NOTE: your shell may have its own version of test and/or [, which usually supersedes the version described here.  Please refer to your shell's documentation for  details  about
+       the options it supports.
+
+[1mAUTHOR[0m
+       Written by Kevin Braunsdorf and Matthew Bradburn.
+
+[1mREPORTING BUGS[0m
+       GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+       Report any translation bugs to <https://translationproject.org/team/>
+
+[1mCOPYRIGHT[0m
+       Copyright © 2020 Free Software Foundation, Inc.  License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+[1mSEE ALSO[0m
+       Full documentation <https://www.gnu.org/software/coreutils/[>
+       or available locally via: info '(coreutils) test invocation'
+
+GNU coreutils 8.32                                                                    August 2024                                                                               TEST(1)

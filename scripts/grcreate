@@ -5,50 +5,57 @@ set -e
 
 # Function to display usage
 usage() {
-        echo "Usage: $0 <repo-name> [project-type]"
-            echo "Example: $0 homelab-infra python"
-                exit 1
+    echo "Usage: $0 <repo-name> [project-type]"
+    echo "Example: $0 homelab-infra python"
+    exit 1
 }
 
 # Ensure GitHub CLI is installed
 if ! command -v gh &> /dev/null; then
-        echo "Error: GitHub CLI (gh) is not installed. Please install it first."
-            exit 1
-            fi
+    echo "Error: GitHub CLI (gh) is not installed. Please install it first."
+    exit 1
+fi
 
 # Ensure repository name is provided
 if [ -z "$1" ]; then
-        usage
-        fi
+    usage
+fi
+
+# Environment Variables
+export USER="${USER:-$(whoami)}"
+export GITUSER="${GITUSER:-$USER}"
+
+# Define directory paths
+export REPOS="$HOME/repo"
+export GHREPOS="$REPOS/github.com/$GITUSER"
 
 # Variables
 REPO_NAME=$1
-GITUSER=$(gh auth status 2>/dev/null | grep -oP '(?<=Logged in to github.com as )\S+')
-BASE_DIR="$HOME/repo/github.com/$GITUSER"
-REPO_DIR="$BASE_DIR/$REPO_NAME"
+PROJECT_TYPE=${2:-default}
+REPO_DIR="$GHREPOS/$REPO_NAME"
 
 # Validate repository name against GitHub naming conventions
 if [[ ! "$REPO_NAME" =~ ^[a-zA-Z0-9._-]+$ ]]; then
-        echo "Error: Repository name '$REPO_NAME' contains invalid characters. Use only letters, numbers, dashes (-), underscores (_), or periods (.)"
-            exit 1
-            fi
+    echo "Error: Repository name '$REPO_NAME' contains invalid characters. Use only letters, numbers, dashes (-), underscores (_), or periods (.)"
+    exit 1
+fi
 
 # Create the base directory if it doesn't exist
-mkdir -p "$BASE_DIR"
+mkdir -p "$GHREPOS"
 
 # Create repository on GitHub
 echo "Creating repository '$REPO_NAME' on GitHub under user '$GITUSER'..."
 if ! gh repo create "$GITUSER/$REPO_NAME" --public; then
-        echo "Error: Failed to create repository '$REPO_NAME' on GitHub."
-            exit 1
-            fi
+    echo "Error: Failed to create repository '$REPO_NAME' on GitHub."
+    exit 1
+fi
 
 # Clone the repository
 echo "Cloning repository to $REPO_DIR..."
 if ! git clone "https://github.com/$GITUSER/$REPO_NAME.git" "$REPO_DIR"; then
-        echo "Error: Failed to clone repository '$REPO_NAME'."
-            exit 1
-            fi
+    echo "Error: Failed to clone repository '$REPO_NAME'."
+    exit 1
+fi
 
 # Navigate to the cloned repository
 cd "$REPO_DIR"

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+s="/\\"
+for ((col=0; col<77; col++)); do
+  r=$((255 - (col * 255 / 76)))
+  g=$((col * 510 / 76))
+  b=$((col * 255 / 76))
+  (( g > 255 )) && g=$((510 - g))
+
+  fg_r=$((255 - r))
+  fg_g=$((255 - g))
+  fg_b=$((255 - b))
+
+  char="${s:col%2:1}"
+  printf "\033[48;2;%d;%d;%dm" "$r" "$g" "$b"
+  printf "\033[38;2;%d;%d;%dm%s" "$fg_r" "$fg_g" "$fg_b" "$char"
+done
+printf "\033[0m\n"

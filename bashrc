@@ -52,6 +52,7 @@ if command -v go &>/dev/null; then
 fi
 
 # ----------------------------- aliases ----------------------------
+
 alias coin="clip '(yes|no)'"
 alias ls='ls -h --color=auto'
 alias scripts='cd "$SCRIPTS"'
@@ -62,6 +63,8 @@ alias diff='diff --color'
 alias tree='tree -a -C'
 alias temp='cd "$(mktemp -d)"'
 alias vi=vim
+alias nvi=nvim
+
 # ----------------------------- dircolors ----------------------------
 
 if _have dircolors; then
@@ -165,12 +168,10 @@ __ps1() {
         PS1="$short"
     fi
 
-    if _have tmux && [[ -n "$TMUX" ]]; then
-        tmux rename-window "$(basename "$PWD")"
-    fi
 }
 
 PROMPT_COMMAND="__ps1"
+
 # ------------------------ os awareness ------------------------------
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
