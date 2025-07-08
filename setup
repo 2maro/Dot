@@ -12,6 +12,7 @@ ln -sf "$PWD/bashrc" "$HOME/.bashrc"
 ln -sf "$PWD/dircolors" "$HOME/.dircolors"
 ln -sf "$PWD/tmux" "$HOME/.tmux.conf"
 ln -sf "$PWD/profile" "$HOME/.profile"
+ln -sf "$PWD/inputrc" "$HOME/.inputrc"
 
 
 mkdir -p "$HOME/.vim/autoload"

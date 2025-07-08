@@ -14,16 +14,17 @@ _source_if() { [[ -r "$1" ]] && source "$1"; }
 # ----------------------- environment variables ----------------------
 
 export LANG=en_US.UTF-8
-export USER="${USER:-$(whoami)}"
-export GITUSER="$USER"
 export TZ=America/Chicago
 
+export USER="${USER:-$(whoami)}"
+export GITUSER="2maro"
 export REPOS="$HOME/Repos"
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/Dot"
 export DOT="$DOTFILES"
 export SCRIPTS="$DOTFILES/scripts"
 
+export HRULEWIDTH=73
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export EDITOR_PREFIX="$VISUAL"
@@ -65,6 +66,13 @@ alias temp='cd "$(mktemp -d)"'
 alias vi=vim
 alias nvi=nvim
 
+# ------------------------------- pager ------------------------------
+
+if [[ -x /usr/bin/lesspipe ]]; then
+	export LESSOPEN="| /usr/bin/lesspipe %s"
+	export LESSCLOSE="/usr/bin/lesspipe %s %s"
+fi
+
 # ----------------------------- dircolors ----------------------------
 
 if _have dircolors; then
@@ -99,18 +107,22 @@ pathprepend() {
 } && export -f pathprepend
 
 pathprepend \
-    "$HOME/.cargo/bin" \
-    "/usr/local/go/bin" \
-    "$HOME/.local/bin" \
-    "$SCRIPTS" \
-    "/opt/homebrew/bin"
+	"$HOME/.local/bin" \
+	"$HOME/.cargo/bin" \
+	"$HOME/.local/go/bin" \
+	"/opt/homebrew/bin" \
+	"/usr/local/go/bin" \
+	"$SCRIPTS"
 
+# System tools, bin utils, fallback binaries
 pathappend \
-    "/usr/local/opt/coreutils/libexec/gnubin" \
-    "/usr/local/bin" "/usr/bin" "/bin" \
-    "/usr/sbin" "/sbin" \
-    "/usr/local/sbin"
-
+	"/usr/local/opt/coreutils/libexec/gnubin" \
+	"/usr/local/bin" \
+	"/usr/bin" \
+	"/bin" \
+	"/usr/sbin" \
+	"/sbin" \
+	"/usr/local/sbin"
 # ------------------------------ cdpath ------------------------------
 
 export CDPATH=".:$SCRIPTS:$DOT:$REPOS:$HOME"
