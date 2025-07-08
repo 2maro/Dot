@@ -116,13 +116,13 @@ pathprepend \
 
 # System tools, bin utils, fallback binaries
 pathappend \
-	"/usr/local/opt/coreutils/libexec/gnubin" \
-	"/usr/local/bin" \
-	"/usr/bin" \
-	"/bin" \
-	"/usr/sbin" \
-	"/sbin" \
-	"/usr/local/sbin"
+  /usr/local/bin /System/Cryptexes/App/usr/bin \
+  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin \
+  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin \
+  /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin \
+  /usr/bin /bin /usr/sbin /sbin /usr/local/sbin \
+  /usr/local/opt/coreutils/libexec/gnubin \
+  '/mnt/c/Windows' '/mnt/c/Program Files (x86)/VMware/VMware Workstation' /mingw64/bin
 # ------------------------------ cdpath ------------------------------
 
 export CDPATH=".:$SCRIPTS:$DOT:$REPOS:$HOME"
