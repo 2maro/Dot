@@ -23,5 +23,14 @@ mkdir -p "$HOME/.config/nvim"
 ln -sf "$PWD/vim/init.lua" "$HOME/.config/nvim/init.lua"
 
 
+#----- Generate and place WezTerm config ----
+if [[ -f "$PWD/wezterm-config.sh" ]]; then
+    mkdir -p "$HOME/.config/wezterm"
+    bash "$PWD/wezterm-config.sh" > "$HOME/.config/wezterm/wezterm.lua"
+    echo "✅ WezTerm config generated"
+fi
+
+
+
 echo "✅ Dotfiles setup complete!"
 

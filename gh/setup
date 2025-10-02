@@ -5,5 +5,5 @@ ln -fs "$PWD/gitconfig" "$HOME/.config/gh/.gitconfig."
 ls -l ~/.config/gh
 
 
-echo 'You might need to do gh auth --with-token $(auth token github)'
+echo "You might need to do gh auth --with-token '$(auth token github)'"
 echo 'You might need to do git user,email and gpg key"'

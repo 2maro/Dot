@@ -29,6 +29,14 @@ endif
 
 call plug#end()
 
+
+           "{ 'hrsh7th/nvim-cmp' }, -- Required
+           "{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
+           "{ 'hrsh7th/cmp-nvim-lua' },
+           "{ 'hrsh7th/cmp-buffer' },
+           "{ 'hrsh7th/cmp-path' },
+           "{ 'saadparwaiz1/cmp_luasnip' },
+
 " ==============================================================================
 "                            Theme: Gruvbox Material
 " ==============================================================================
@@ -72,9 +80,8 @@ set history=100
 set mouse=
 set showmode
 set shortmess=aoOtTI
-set number
-set relativenumber
 set scrolloff=8
+
 " Undodir for both Vim and Neovim
 let s:undo_dir = expand('~/.local/share/undo')
 if !isdirectory(s:undo_dir)
@@ -145,9 +152,10 @@ let g:go_version_warning          = 0
 " ==============================================================================
 "                                Key Mappings
 " ==============================================================================
+let g:mapleader = " "
 nnoremap <C-L> :nohlsearch<CR><C-L>
 autocmd FileType go nnoremap <leader>n if err != nil { return err }<CR><Esc>
-
+nnoremap <silent> <leader>sc :set nonu nornu signcolumn=no<CR>
 " ==============================================================================
 "                             Autocmds and Filetypes
 " ==============================================================================
@@ -163,4 +171,3 @@ autocmd BufNewFile,BufRead */tasks/*.yaml,*/handlers/*.yaml    set ft=yaml.ansib
 if !has('nvim')
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 endif
-

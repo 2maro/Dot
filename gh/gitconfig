@@ -1,0 +1,14 @@
+[user]
+    name=
+    email=
+[filter "lfs"]
+    clean =
+    smudge = 
+    process = 
+    required = true
+
+[comit]
+
+    gpgsign = true
+[url "ssh://git@github.com/"]
+    imsteadOf = https://github.com

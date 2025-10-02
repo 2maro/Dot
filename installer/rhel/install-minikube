@@ -1,0 +1,13 @@
+#!/bin/bash
+
+ver=1.34.0
+
+dir=$(mktemp -d)
+
+cd "$dir" || exit
+
+echo "Now working from $dir"
+
+curl -sSLO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+unzip -q ./*.zip

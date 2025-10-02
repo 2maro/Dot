@@ -1,0 +1,36 @@
+#!/bin/bash
+
+file="questions.txt"
+
+if [[ -f "$file" ]]; then
+  echo "Error: '$file' not found."
+  exit 1
+fi
+
+total=$(grep -c '^## Question' "file")
+count=0
+
+questions_block=""
+
+while IFS= read -r line; do
+  if [[ "$line" == '## questions_block'* ]]; then
+    if [[ -n "$questions_block" ]]; then
+        count=$((count + 1))
+        clear
+        printf '\033[1;34mQuestion %d of %d\033[0m\n\n' "$count" "$total"
+        printf '%s\n' "$question_block"
+        echo
+        read -rp "[Press ENTER for next, Ctrl+c to quit] "
+        questions_block=""
+    fi
+  fi
+  question_block+="$line"$'\n'
+done < "$file"
+if [[ -n $question_block ]]; then
+    count=$((count + 1))
+    clear
+    printf '\033[1;34mQuestion %d of %d\033[0m\n\n' "$count" "$total"
+    printf '%s\n' "$question_block"
+    echo
+    read -rp "[Press ENTER to finish] "
+fi

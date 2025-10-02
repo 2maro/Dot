@@ -1,0 +1,35 @@
+#!/bin/bash
+ 
+DEBUG="${DEBUG:-False}"
+
+_log(){
+    local level="$1"
+    local message="$2"
+    local timestamp
+    timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+
+    local upper_level="{$level^^}"
+    local color_reset="\033[0m"
+    local color_info="\033[1;34m"
+    local color_warn="\033[1;33m"
+    local color_error="\033[1;31m"
+    local color_debug="\033[0;36m"
+    if [[ "$upper_level" == "INFO" ]]; then
+        printf "${color_info}%s [INFO]  %s${color_reset}\n" "$timestamp" "$message"
+    elif [[ "$upper_level" == "WARN" ]]; then
+        printf "${color_warn}%s [WARN]  %s${color_reset}\n" "$timestamp" "$message"
+    elif [[ "$upper_level" == "ERROR" ]]; then
+        printf "${color_error}%s [ERROR] %s${color_reset}\n" "$timestamp" "$message" >&2
+    elif [[ "$upper_level" == "DEBUG" ]]; then
+        if [[ "$DEBUG" == "True" ]]; then
+            printf "${color_debug}%s [DEBUG] %s${color_reset}\n" "$timestamp" "$message" >&2
+        fi
+    else
+        printf "${color_error}%s [FATAL] Invalid log level: '%s'. Valid: DEBUG, INFO, WARN, ERROR${color_reset}\n" "$timestamp" "$level" >&2
+    fi
+}
+
+log_info()  { _log "INFO"  "$1"; }
+log_warn()  { _log "WARN"  "$1"; }
+log_error() { _log "ERROR" "$1"; }
+log_debug() { _log "DEBUG" "$1"; }

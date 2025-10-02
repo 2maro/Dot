@@ -7,10 +7,12 @@ set -g default-terminal "tmux-256color"
 
 # Enable true color (24-bit) support - this is crucial for your vim colors
 set-option -sa terminal-overrides ',xterm-256color:RGB'
-set-option -sa terminal-overrides ',xterm-256color:Tc'
+#set-option -sa terminal-overrides ',xterm-256color:Tc'
+set -ga terminal-overrides ",*256col*:Tc"
+set-option -sa terminal-overrides ',xterm-256color:RGB'
 
 # Additional terminal features for modern terminals
-set-option -sa terminal-features ',xterm-256color:RGB'
+#set-option -sa terminal-features ',xterm-256color:RGB'
 
 # Enable italics support (you already have this working)
 set-option -sa terminal-overrides ',xterm*:sitm=\E[3m,ritm=\E[23m'

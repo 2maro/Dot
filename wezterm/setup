@@ -2,13 +2,13 @@
 # --------------------------- Os Detection ---------------------------
 detect_os() {
     system_name=$(uname -s)
-    case "${system_name}" in 
+    case "${system_name}" in
         Linux*) os=Linux;;
         Darwin*) os=macos;;
-        CYGWIN*|MINGW|MSYS*) os=windows;;
+        CYGWIN*|MINGW*|MSYS*) os=windows;;
         *)      os="unknown"
     esac
-    echo "$os"    
+    echo "$os"
 }
 # ---------------------------- config gen ----------------------------
 generate_config() {
@@ -20,52 +20,47 @@ generate_config() {
             font='wezterm.font("Ubuntu Mono")'
             domain='WSL:Ubuntu'
             ;;
-
         macos)
-            shell='{"\/opt\/homebrew\/bin\/bash", "--login"}'
-            font='wezterm.font("UbuntuMono Nerd Font'
+            shell='{"/opt/homebrew/bin/bash", "--login"}'
+            font='wezterm.font("UbuntuMono Nerd Font")'
             domain=''
             ;;
-
         linux)
-            shell='{""\/bin\/bash", "--login}'
+            shell='{"/bin/bash", "--login"}'
             font='wezterm.font("UbuntuMono Nerd Font")'
             domain=''
             ;;
         *)
-            echo "unsupported Os: $os"
+            echo "unsupported Os: $os" >&2
             exit 1
             ;;
     esac
-    
 cat <<EOF
 local wezterm = require("wezterm")
-
 return {
-  window_close_confirmation = 'NeverPrompt',
-  audible_bell = "Disabled",
-
-  default_prog = $shell,
-  default_domain = "$domain",
-
-  color_scheme = 'Gruvbox Material (Gogh)',
-  font = $font,
-  font_size = 26,
-
-  colors = {
-    cursor_bg = "#928374",
-    cursor_border = "#928374",
-    cursor_fg = "#1d2021",
-  },
-
-  window_padding = {
-    left = 40,
-    right = 0,
-    top = 0,
-    bottom = 2,
-  },
-
-  term = "xterm-256color",
+    window_close_confirmation = 'NeverPrompt',
+    audible_bell = "Disabled",
+    default_prog = $shell,
+    default_domain = "$domain",
+    color_scheme = 'Gruvbox Material (Gogh)',
+    font = $font,
+    font_size = 26,
+    default_cursor_style = "BlinkingBar",
+    enable_tab_bar = false,
+    colors = {
+        background = "#000000",
+        foreground = "#ebdbb2",
+        cursor_bg = "#928374",
+        cursor_border = "#928374",
+        cursor_fg = "#1d2021",
+    },
+    window_padding = {
+        left = 40,
+        right = 0,
+        top = 0,
+        bottom = 2,
+    },
+    term = "xterm-256color",
 }
 EOF
 }
@@ -73,10 +68,6 @@ EOF
 main() {
     local os
     os="$(detect_os)"
-
-    echo "Detected Os: $os"
-
     generate_config "$os"
 }
-
 main "$@"

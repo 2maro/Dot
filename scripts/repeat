@@ -1,0 +1,15 @@
+#!/bin/bash
+
+repeat() {
+    local char="${1:-#}"
+    local count="${2:-1}"
+    local out=""
+
+    for ((i = 0; i < count; i++)); do
+        out+="$char"
+    done
+
+    printf "%s" "$out"
+}
+
+repeat "$@"

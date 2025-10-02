@@ -33,7 +33,8 @@ export KUBE_EDITOR="$VISUAL"
 export HISTSIZE=10000
 export HISTFILESIZE=20000
 
-export LESS="-FXR -RAW-CONTROL-CHARS"
+#export LESS="-FXR -RAW-CONTROL-CHARS"
+export LESS="-FXR"
 export TERM="${TERM:-xterm-256color}"
 export COLORTERM="truecolor"
 export LESS_TERMCAP_md=$'\e[1;33m'
@@ -85,6 +86,7 @@ fi
 
 # ------------------------------- path -------------------------------
 
+
 pathappend() {
     declare arg
     for arg in "$@"; do
@@ -123,6 +125,8 @@ pathappend \
   /usr/bin /bin /usr/sbin /sbin /usr/local/sbin \
   /usr/local/opt/coreutils/libexec/gnubin \
   '/mnt/c/Windows' '/mnt/c/Program Files (x86)/VMware/VMware Workstation' /mingw64/bin
+
+export PATH="$SCRIPTS:$PATH"
 # ------------------------------ cdpath ------------------------------
 
 export CDPATH=".:$SCRIPTS:$DOT:$REPOS:$HOME"
@@ -179,7 +183,7 @@ __ps1() {
     else
         PS1="$short"
     fi
-
+    printf "\x1b[\x35 q"
 }
 
 PROMPT_COMMAND="__ps1"
@@ -211,4 +215,3 @@ complete -C '/usr/bin/terraform' terraform
 complete -C '/usr/bin/cargo' cargo
 complete -C '/usr/bin/rustup' rustup
 complete -C '/usr/bin/rustc' rustc
-. "$HOME/.cargo/env"
