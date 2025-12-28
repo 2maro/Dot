@@ -2,8 +2,6 @@
 "                              Plugin Management
 " ==============================================================================
 call plug#begin('~/.vim/plugged')
-
-" General plugins
 Plug 'conradirwin/vim-bracketed-paste'
 Plug 'fatih/vim-go',          { 'do': ':GoUpdateBinaries' }
 Plug 'hashivim/vim-terraform'
@@ -11,35 +9,12 @@ Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-fugitive'
 Plug 'dense-analysis/ale'
 Plug 'sainnhe/gruvbox-material'
-
-" Neovim-specific plugins
-if has('nvim-0.8')
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-  Plug 'williamboman/mason.nvim'
-  Plug 'williamboman/mason-lspconfig.nvim'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'L3MON4D3/LuaSnip'
-  Plug 'saadparwaiz1/cmp_luasnip'
-endif
-
 call plug#end()
-
-
-           "{ 'hrsh7th/nvim-cmp' }, -- Required
-           "{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
-           "{ 'hrsh7th/cmp-nvim-lua' },
-           "{ 'hrsh7th/cmp-buffer' },
-           "{ 'hrsh7th/cmp-path' },
-           "{ 'saadparwaiz1/cmp_luasnip' },
 
 " ==============================================================================
 "                            Theme: Gruvbox Material
 " ==============================================================================
+if !has('nvim')
 set background=dark
 let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_foreground = 'material'
@@ -47,6 +22,7 @@ let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_enable_bold = 1
 colorscheme gruvbox-material
 autocmd ColorScheme * highlight Normal guibg=#000000
+endif
 " ==============================================================================
 "                           Basic Vim Settings
 " ==============================================================================
@@ -83,7 +59,7 @@ set shortmess=aoOtTI
 set scrolloff=8
 
 " Undodir for both Vim and Neovim
-let s:undo_dir = expand('~/.local/share/undo')
+let s:undo_dir = expand('~/.local/share/vim-undo')
 if !isdirectory(s:undo_dir)
   call mkdir(s:undo_dir, 'p')
 endif
@@ -97,7 +73,7 @@ set ruf=%30(%=%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
 "                                ALE Config (With Emojis)
 " ==============================================================================
 let g:ale_sign_error   = '☠'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_warning = '⚠️'
 let g:ale_sign_info    = '🧠'
 let g:ale_sign_hint    = '🤔'
 
@@ -117,7 +93,7 @@ let g:ale_fixers = {
   \ 'bash':      ['shfmt'],
   \ 'yaml':      ['prettier'],
 \}
-
+let g:ale_disable_lsp = 1
 let g:ale_set_quickfix         = 1
 let g:ale_set_signs            = 1
 let g:ale_linter_aliases       = {'bash': 'sh'}
